@@ -2,13 +2,13 @@
   "name": "solara",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Keira Hopkins <@NotKeira> (https://keirahopkins.co.uk)",
+  "license": "Apache-2.0",
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "discord.js": "^14.21.0",
