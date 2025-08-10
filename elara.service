@@ -6,14 +6,15 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/root/dev/bot/elara
+ExecStartPre=/root/dev/bot/elara/logrotater.sh
 ExecStart=/usr/bin/node dist/index.js
 Restart=on-failure
 RestartSec=5
 EnvironmentFile=/root/dev/bot/elara/.env
 MemoryMax=200M
 MemoryHigh=180M
-StandardOutput=journal
-StandardError=journal
+StandardOutput=append:/root/dev/bot/elara/logs/elara.log
+StandardError=append:/root/dev/bot/elara/logs/elara.err.log
 PrivateTmp=true
 LimitNOFILE=4096
 
