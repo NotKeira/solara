@@ -1,0 +1,21 @@
+[Unit]
+Description=Elara Bot
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/dev/bot/elara
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/root/dev/bot/elara/.env
+MemoryMax=200M
+MemoryHigh=180M
+StandardOutput=journal
+StandardError=journal
+PrivateTmp=true
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
