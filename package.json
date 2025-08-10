@@ -3,9 +3,10 @@
   "version": "2.0.1",
   "description": "Elara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "dev": "pnpm exec tsx src/index.ts",
-    "prod": "pnpm clean && pnpm build && pnpm start",
+    "prod": "pnpm clean && pnpm build",
     "build": "tsc && tsc-alias",
     "start": "node -r tsconfig-paths/register dist/index.js",
     "refresh": "pnpm exec tsx src/deploy-commands.ts",
