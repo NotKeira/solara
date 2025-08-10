@@ -22,8 +22,8 @@ Elara enhances your community with seamless automation, intelligent moderation, 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/NotKeira/solara.git
-cd solara
+git clone https://github.com/NotKeira/elara.git
+cd elara
 ```
 
 2. Install dependencies:
