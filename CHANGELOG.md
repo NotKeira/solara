@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2025-08-10
+
+### 🐛 Bug Fixes
+
+- **Documentation**: Update repository clone instructions in README to reflect new repository name (elara)
+
 ## [2.0.0] - 2025-08-10
 
 ### 💥 BREAKING CHANGES
