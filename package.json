@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "description": "Elara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
   "main": "src/index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "pnpm exec tsx src/index.ts",
     "prod": "pnpm clean && pnpm build",
@@ -11,15 +11,17 @@
     "start": "node -r tsconfig-paths/register dist/index.js",
     "refresh": "pnpm exec tsx src/deploy-commands.ts",
     "clean": "rm -rf dist",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:push": "drizzle-kit push --config src/drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config src/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config src/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config src/drizzle.config.ts"
   },
   "keywords": [],
   "author": "Keira Hopkins <@NotKeira> (https://keirahopkins.co.uk)",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
   "dependencies": {
+    "date-fns-tz": "^3.2.0",
     "discord.js": "^14.21.0",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
