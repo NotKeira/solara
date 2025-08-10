@@ -1,21 +1,36 @@
 {
-  "name": "solara",
+  "name": "elara",
   "version": "1.0.0",
-  "description": "Solara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
+  "description": "Elara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm exec tsx src/index.ts",
+    "prod": "pnpm clean && pnpm build && pnpm start",
+    "build": "tsc && tsc-alias",
+    "start": "node -r tsconfig-paths/register dist/index.js",
+    "refresh": "pnpm exec tsx src/deploy-commands.ts",
+    "clean": "rm -rf dist",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "keywords": [],
   "author": "Keira Hopkins <@NotKeira> (https://keirahopkins.co.uk)",
   "license": "Apache-2.0",
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
   "dependencies": {
     "discord.js": "^14.21.0",
-    "dotenv": "^17.2.1"
+    "dotenv": "^17.2.1",
+    "drizzle-orm": "^0.44.4",
+    "pg": "^8.16.3",
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   }
 }
