@@ -2,6 +2,7 @@ import type { Command } from "@/types";
 import { sendError } from "@/utils/error";
 import { sanitise } from "@/utils/sanitise";
 import {
+  ApplicationIntegrationType,
   ContainerBuilder,
   Interaction,
   InteractionContextType,
@@ -19,7 +20,7 @@ export class CalculateCommand implements Command {
         InteractionContextType.BotDM,
         InteractionContextType.Guild,
         InteractionContextType.PrivateChannel
-      )
+      ).setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
       .addStringOption((option) =>
         option
           .setName("eq")
