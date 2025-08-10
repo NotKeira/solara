@@ -6,8 +6,10 @@ import {
   ContainerBuilder,
   MessageFlags,
   InteractionContextType,
+  ApplicationIntegrationType,
 } from "discord.js";
 import { memoryUsage } from "process";
+import { version } from "@/../package.json";
 
 export class PingCommand implements Command {
   data: SlashCommandBuilder = new SlashCommandBuilder()
@@ -17,6 +19,10 @@ export class PingCommand implements Command {
       InteractionContextType.BotDM,
       InteractionContextType.Guild,
       InteractionContextType.PrivateChannel
+    )
+    .setIntegrationTypes(
+      ApplicationIntegrationType.GuildInstall,
+      ApplicationIntegrationType.UserInstall
     );
 
   async execute(interaction: Interaction): Promise<void> {
@@ -58,9 +64,7 @@ export class PingCommand implements Command {
 
     const statsContainer = new ContainerBuilder()
       .addTextDisplayComponents((text) =>
-        text.setContent(
-          `## 📊 Elara Stats | ${process.env["VERSION"] || "1.0.0"}`
-        )
+        text.setContent(`## 📊 Elara Stats | v${version || "1.0.0"}`)
       )
       .addTextDisplayComponents((text) =>
         text.setContent(`**Heap Memory:** ${progressBars}`)
