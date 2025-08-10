@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-08-10
+
+### ✨ Features
+
+- **Timezone Command System**: Complete timezone management for users
+
+  - `/timezone set <timezone> [user]` - Set timezone for yourself or another user (admin only)
+  - `/timezone get <user>` - Get a user's timezone and current time
+  - `/timezone find <country>` - Find timezones for a specific country
+  - Full autocomplete support for countries and IANA timezone identifiers
+  - Integration with `date-fns-tz` for accurate timezone handling
+  - Timezone data stored directly in user profiles for efficiency
+
+- **Enhanced Database Schema**: Complete database architecture redesign
+
+  - **User-Centric Design**: `users` table as core entity with timezone field
+  - **Comprehensive Guild System**: Enhanced guild tracking with settings, members, and permissions
+  - **Advanced Moderation**: Separate warnings table, appeals system, evidence tracking
+  - **Auto-Moderation Framework**: Configurable rules with exemptions and thresholds
+  - **Performance Optimizations**: Strategic database indexes for frequent queries
+  - **Data Integrity**: Proper foreign key relationships and cascade deletes
+
+- **Timezone Utilities**: Robust timezone handling infrastructure
+  - IANA timezone validation and formatting
+  - Country-to-timezone mappings for 195+ countries
+  - Common timezone presets for quick access
+  - Time formatting in user's preferred timezone
+  - Smart autocomplete with fuzzy matching
+
+### 🔧 Database Improvements
+
+- **Schema Organization**: Clean, well-documented schema with logical sections
+
+  - Core User System with timezone and locale preferences
+  - Guild System with comprehensive settings and member tracking
+  - Moderation System with appeals and evidence tracking
+  - Auto-Moderation System with configurable rules and exemptions
+
+- **Type Safety**: Complete TypeScript integration
+  - Drizzle ORM type inference for all tables
+  - Proper `Select` and `Insert` types exported
+  - Type-safe database operations throughout codebase
+
+### 📦 Dependencies
+
+- **Added**: `date-fns-tz@^3.2.0` for timezone handling
+
+### 🛠️ Technical Improvements
+
+- **Database Connection**: Enhanced error handling and connection management
+- **Command Architecture**: Improved command structure with better type safety
+- **Utility Functions**: Modular timezone utilities for reusability
+
 ## [2.0.1] - 2025-08-10
 
 ### 🐛 Bug Fixes

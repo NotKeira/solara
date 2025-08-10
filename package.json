@@ -1,6 +1,6 @@
 {
   "name": "elara",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Elara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
   "main": "src/index.ts",
   "type": "commonjs",
