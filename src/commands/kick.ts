@@ -7,12 +7,13 @@ import {
   DiscordAPIError,
   ContainerBuilder,
   InteractionContextType,
+  ApplicationIntegrationType,
 } from "discord.js";
 export class KickCommand implements Command {
   data = new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Kick a member from the server")
-    .setContexts(InteractionContextType.Guild)
+    .setContexts(InteractionContextType.Guild).setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
     .addUserOption((option) =>
       option
         .setName("member")
