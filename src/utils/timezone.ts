@@ -250,33 +250,168 @@ export function getTimezoneDisplayName(timezone: string): string {
  * Filters timezones based on search query for autocomplete
  */
 export function filterTimezones(query: string, limit: number = 25): string[] {
-  const lowercaseQuery = query.toLowerCase();
-
-  // First, try to match by country name
-  const countryMatches: string[] = [];
-  for (const [country, timezones] of Object.entries(COUNTRY_TIMEZONES)) {
-    if (country.toLowerCase().includes(lowercaseQuery)) {
-      countryMatches.push(...timezones);
-    }
-  }
-
-  // Then, match by timezone name
-  const timezoneMatches = COMMON_TIMEZONES.filter((tz) =>
-    tz.toLowerCase().includes(lowercaseQuery)
+  console.log(
+    `[DEBUG] filterTimezones called with query: "${query}", limit: ${limit}`
   );
 
-  // Combine and deduplicate
-  const combined = [...new Set([...countryMatches, ...timezoneMatches])];
+  if (!query) {
+    const result = COMMON_TIMEZONES.slice(0, limit);
+    console.log(
+      `[DEBUG] No query, returning ${result.length} common timezones:`,
+      result.slice(0, 5)
+    );
+    return result;
+  }
 
-  return combined.slice(0, limit);
+  const lowercaseQuery = query.toLowerCase();
+  const results: { timezone: string; score: number }[] = [];
+
+  // Add country matches (highest priority)
+  addCountryMatches(lowercaseQuery, results);
+
+  // Add timezone name matches
+  addTimezoneMatches(lowercaseQuery, results);
+
+  // Add city name matches
+  addCityMatches(lowercaseQuery, results);
+
+  // Sort by score and return unique timezones
+  const sortedResults = results.toSorted((a, b) => b.score - a.score);
+  const finalResults = sortedResults.map((r) => r.timezone).slice(0, limit);
+
+  console.log(
+    `[DEBUG] Found ${results.length} total matches, returning ${finalResults.length} results:`,
+    finalResults.slice(0, 5)
+  );
+
+  return finalResults;
+}
+
+function addCountryMatches(
+  query: string,
+  results: { timezone: string; score: number }[]
+): void {
+  for (const [country, timezones] of Object.entries(COUNTRY_TIMEZONES)) {
+    if (country.toLowerCase().includes(query)) {
+      for (const tz of timezones) {
+        results.push({ timezone: tz, score: 10 });
+      }
+    }
+  }
+}
+
+function addTimezoneMatches(
+  query: string,
+  results: { timezone: string; score: number }[]
+): void {
+  for (const tz of COMMON_TIMEZONES) {
+    if (tz.toLowerCase().includes(query)) {
+      const existingIndex = results.findIndex((r) => r.timezone === tz);
+      if (existingIndex >= 0) {
+        const existing = results[existingIndex];
+        if (existing) {
+          existing.score += 5;
+        }
+      } else {
+        results.push({ timezone: tz, score: 5 });
+      }
+    }
+  }
+}
+
+function addCityMatches(
+  query: string,
+  results: { timezone: string; score: number }[]
+): void {
+  for (const tz of COMMON_TIMEZONES) {
+    const city = tz.split("/").pop()?.replace(/_/g, " ").toLowerCase();
+    if (
+      city &&
+      city.includes(query) &&
+      !results.some((r) => r.timezone === tz)
+    ) {
+      results.push({ timezone: tz, score: 4 });
+    }
+  }
 }
 
 /**
  * Filters countries based on search query for autocomplete
  */
 export function filterCountries(query: string, limit: number = 25): string[] {
+  console.log(
+    `[DEBUG] filterCountries called with query: "${query}", limit: ${limit}`
+  );
+
+  if (!query) {
+    const popularCountries = [
+      "United States",
+      "United Kingdom",
+      "Canada",
+      "Australia",
+      "Germany",
+      "France",
+      "Japan",
+      "Brazil",
+      "India",
+      "China",
+      "Russia",
+      "Italy",
+      "Spain",
+      "Netherlands",
+      "Sweden",
+      "Norway",
+      "Denmark",
+      "Poland",
+    ];
+    console.log(
+      `[DEBUG] No query provided, returning ${
+        popularCountries.slice(0, limit).length
+      } popular countries`
+    );
+    return popularCountries.slice(0, limit);
+  }
+
   const lowercaseQuery = query.toLowerCase();
-  return Object.keys(COUNTRY_TIMEZONES)
-    .filter((country) => country.toLowerCase().includes(lowercaseQuery))
-    .slice(0, limit);
+  const results: { country: string; score: number }[] = [];
+
+  for (const country of Object.keys(COUNTRY_TIMEZONES)) {
+    const score = calculateCountryScore(country.toLowerCase(), lowercaseQuery);
+    if (score > 0) {
+      results.push({ country, score });
+    }
+  }
+
+  const sortedResults = results.toSorted((a, b) => {
+    if (a.score !== b.score) return b.score - a.score;
+    return a.country.localeCompare(b.country);
+  });
+
+  const finalResults = sortedResults.map((r) => r.country).slice(0, limit);
+  console.log(
+    `[DEBUG] filterCountries found ${results.length} matches, returning top ${finalResults.length}:`,
+    finalResults
+  );
+
+  return finalResults;
+}
+
+function calculateCountryScore(
+  countryLower: string,
+  queryLower: string
+): number {
+  if (countryLower.startsWith(queryLower)) {
+    return 10; // Exact prefix match
+  }
+  if (countryLower.includes(queryLower)) {
+    return 5; // Contains match
+  }
+
+  // Check if any word starts with the query
+  const words = countryLower.split(" ");
+  if (words.some((word) => word.startsWith(queryLower))) {
+    return 7;
+  }
+
+  return 0; // No match
 }

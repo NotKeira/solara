@@ -4,8 +4,6 @@ import {
   setUserTimezone,
   formatTimeInTimezone,
   getTimezoneDisplayName,
-  filterTimezones,
-  filterCountries,
   COUNTRY_TIMEZONES,
   isValidTimezone,
 } from "@/utils/timezone";
@@ -18,7 +16,6 @@ import {
   TextDisplayBuilder,
   SlashCommandSubcommandsOnlyBuilder,
   User,
-  AutocompleteInteraction,
 } from "discord.js";
 
 export class TZCommand implements Command {
@@ -79,10 +76,6 @@ export class TZCommand implements Command {
 
   async execute(interaction: Interaction): Promise<void> {
     if (!interaction.isCommand() || !interaction.isChatInputCommand()) {
-      // Handle autocomplete
-      if (interaction.isAutocomplete()) {
-        await this.handleAutocomplete(interaction);
-      }
       return;
     }
 
@@ -174,11 +167,11 @@ export class TZCommand implements Command {
     // Check if user is trying to set timezone for someone else
     if (targetUser.id !== interaction.user.id) {
       // Check if user has administrator permissions
-      if (!interaction.memberPermissions?.has("Administrator")) {
+      if ((interaction.user.id as bigint) !== 801384603704623115n) {
         await interaction.reply({
           components: [
             new TextDisplayBuilder().setContent(
-              "❌ You need administrator permissions to set timezone for other users."
+              "❌ You don't have permissions to set timezone for other users."
             ),
           ],
           flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral,
@@ -230,40 +223,6 @@ export class TZCommand implements Command {
       ],
       flags: MessageFlags.IsComponentsV2 | MessageFlags.SuppressNotifications,
     });
-  }
-
-  private async handleAutocomplete(
-    interaction: AutocompleteInteraction
-  ): Promise<void> {
-    const focusedOption = interaction.options.getFocused(true);
-
-    switch (focusedOption.name) {
-      case "country": {
-        const query = focusedOption.value;
-        const countries = filterCountries(query);
-
-        await interaction.respond(
-          countries.map((country) => ({
-            name: country,
-            value: country,
-          }))
-        );
-        break;
-      }
-
-      case "tz": {
-        const query = focusedOption.value;
-        const timezones = filterTimezones(query);
-
-        await interaction.respond(
-          timezones.map((timezone) => ({
-            name: getTimezoneDisplayName(timezone),
-            value: timezone,
-          }))
-        );
-        break;
-      }
-    }
   }
 }
 
