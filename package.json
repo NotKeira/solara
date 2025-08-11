@@ -1,6 +1,6 @@
 {
   "name": "elara",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Elara enhances your community with seamless automation, intelligent moderation, and versatile tools that keep conversations flowing and your server running smoothly.",
   "main": "src/index.ts",
   "type": "commonjs",
@@ -8,7 +8,7 @@
     "dev": "pnpm exec tsx src/index.ts",
     "prod": "pnpm clean && pnpm build",
     "build": "tsc && tsc-alias",
-    "start": "node --max-old-space-size=128 --optimize-for-size -r tsconfig-paths/register dist/index.js",
+    "start": "node --max-old-space-size=512 --optimize-for-size -r tsconfig-paths/register dist/index.js",
     "refresh": "pnpm exec tsx src/deploy-commands.ts",
     "clean": "rm -rf dist",
     "db:push": "drizzle-kit push --config src/drizzle.config.ts",

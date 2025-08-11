@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2025-08-11
+
+### ✨ Features
+
+- **Memory Command**: Added comprehensive memory analysis command
+  - `/memory` - Detailed memory usage analysis with heap statistics
+  - Real-time memory profiling with RSS, heap used, heap total, and external memory
+  - Color-coded progress bars for visual memory usage representation
+  - Percentage-based memory usage indicators for better monitoring
+
+### ⚡ Performance Improvements
+
+- **Memory Optimization**: Significant reduction in bot memory usage
+
+  - Implemented lazy loading for timezone data structures (loads on-demand vs. statically)
+  - Removed debug logging that was consuming memory and CPU cycles
+  - Optimized Discord.js intents (removed unnecessary `MessageContent` and `GuildMessages`)
+  - Added Node.js memory optimization flags (`--max-old-space-size=512`, `--max-semi-space-size=16`, `--optimize-for-size`)
+  - Enhanced systemd service configuration with memory limits and production optimizations
+  - Improved autocomplete performance with score-based filtering algorithms
+
+- **Resource Efficiency**: Reduced memory footprint
+  - Lazy-loaded country timezone mappings save ~10-15MB of static data
+  - Optimized V8 garbage collection with `--gc-interval=2000`
+  - Reduced thread pool size with `UV_THREADPOOL_SIZE=4`
+  - Production environment optimizations with `NODE_ENV=production`
+
+### 🛠️ Technical Improvements
+
+- Enhanced timezone filtering functions with intelligent scoring system
+- Improved autocomplete responsiveness for timezone and country searches
+- Optimized service startup configuration for production deployment
+- Enhanced timezone and country filtering with improved autocomplete functionality
+- Added debugging logs for better development experience
+- Improved memory profiling utilities for better resource monitoring
+
 ## [2.1.0] - 2025-08-10
 
 ### ✨ Features
