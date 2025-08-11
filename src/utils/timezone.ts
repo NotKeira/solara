@@ -2,64 +2,69 @@ import { format, formatInTimeZone } from "date-fns-tz";
 import { Database, users } from "@/database";
 import { eq } from "drizzle-orm";
 
-// Common timezone mappings for autocomplete
-export const COMMON_TIMEZONES = [
-  // Americas
-  "America/New_York",
-  "America/Chicago",
-  "America/Denver",
-  "America/Los_Angeles",
-  "America/Toronto",
-  "America/Vancouver",
-  "America/Sao_Paulo",
-  "America/Mexico_City",
+// Common timezone mappings for autocomplete (lazy-loaded)
+let COMMON_TIMEZONES_CACHE: string[] | null = null;
 
-  // Europe
-  "Europe/London",
-  "Europe/Dublin",
-  "Europe/Paris",
-  "Europe/Berlin",
-  "Europe/Rome",
-  "Europe/Madrid",
-  "Europe/Amsterdam",
-  "Europe/Brussels",
-  "Europe/Vienna",
-  "Europe/Prague",
-  "Europe/Warsaw",
-  "Europe/Stockholm",
-  "Europe/Oslo",
-  "Europe/Helsinki",
-  "Europe/Copenhagen",
-  "Europe/Zurich",
-  "Europe/Athens",
-  "Europe/Istanbul",
-  "Europe/Moscow",
+function getCommonTimezones(): string[] {
+  COMMON_TIMEZONES_CACHE ??= [
+    // Americas
+    "America/New_York",
+    "America/Chicago",
+    "America/Denver",
+    "America/Los_Angeles",
+    "America/Toronto",
+    "America/Vancouver",
+    "America/Sao_Paulo",
+    "America/Mexico_City",
 
-  // Asia/Pacific
-  "Asia/Tokyo",
-  "Asia/Seoul",
-  "Asia/Shanghai",
-  "Asia/Hong_Kong",
-  "Asia/Singapore",
-  "Asia/Bangkok",
-  "Asia/Jakarta",
-  "Asia/Manila",
-  "Asia/Taipei",
-  "Asia/Kolkata",
-  "Asia/Dubai",
-  "Asia/Riyadh",
-  "Australia/Sydney",
-  "Australia/Melbourne",
-  "Australia/Perth",
-  "Australia/Brisbane",
-  "Pacific/Auckland",
+    // Europe
+    "Europe/London",
+    "Europe/Dublin",
+    "Europe/Paris",
+    "Europe/Berlin",
+    "Europe/Rome",
+    "Europe/Madrid",
+    "Europe/Amsterdam",
+    "Europe/Brussels",
+    "Europe/Vienna",
+    "Europe/Prague",
+    "Europe/Warsaw",
+    "Europe/Stockholm",
+    "Europe/Oslo",
+    "Europe/Helsinki",
+    "Europe/Copenhagen",
+    "Europe/Zurich",
+    "Europe/Athens",
+    "Europe/Istanbul",
+    "Europe/Moscow",
 
-  // Africa
-  "Africa/Cairo",
-  "Africa/Lagos",
-  "Africa/Johannesburg",
-  "Africa/Casablanca",
-];
+    // Asia/Pacific
+    "Asia/Tokyo",
+    "Asia/Seoul",
+    "Asia/Shanghai",
+    "Asia/Hong_Kong",
+    "Asia/Singapore",
+    "Asia/Bangkok",
+    "Asia/Jakarta",
+    "Asia/Manila",
+    "Asia/Taipei",
+    "Asia/Kolkata",
+    "Asia/Dubai",
+    "Asia/Riyadh",
+    "Australia/Sydney",
+    "Australia/Melbourne",
+    "Australia/Perth",
+    "Australia/Brisbane",
+    "Pacific/Auckland",
+
+    // Africa
+    "Africa/Cairo",
+    "Africa/Lagos",
+    "Africa/Johannesburg",
+    "Africa/Casablanca",
+  ];
+  return COMMON_TIMEZONES_CACHE;
+}
 
 // Country to timezone mapping for autocomplete (lazy-loaded)
 let COUNTRY_TIMEZONES_CACHE: Record<string, string[]> | null = null;
@@ -256,7 +261,7 @@ export function getTimezoneDisplayName(timezone: string): string {
  */
 export function filterTimezones(query: string, limit: number = 25): string[] {
   if (!query) {
-    return COMMON_TIMEZONES.slice(0, limit);
+    return getCommonTimezones().slice(0, limit);
   }
 
   const lowercaseQuery = query.toLowerCase();
@@ -294,7 +299,8 @@ function addTimezoneMatches(
   query: string,
   results: { timezone: string; score: number }[]
 ): void {
-  for (const tz of COMMON_TIMEZONES) {
+  const commonTimezones = getCommonTimezones();
+  for (const tz of commonTimezones) {
     if (tz.toLowerCase().includes(query)) {
       const existingIndex = results.findIndex((r) => r.timezone === tz);
       if (existingIndex >= 0) {
@@ -313,13 +319,10 @@ function addCityMatches(
   query: string,
   results: { timezone: string; score: number }[]
 ): void {
-  for (const tz of COMMON_TIMEZONES) {
+  const commonTimezones = getCommonTimezones();
+  for (const tz of commonTimezones) {
     const city = tz.split("/").pop()?.replace(/_/g, " ").toLowerCase();
-    if (
-      city &&
-      city.includes(query) &&
-      !results.some((r) => r.timezone === tz)
-    ) {
+    if (city?.includes(query) && !results.some((r) => r.timezone === tz)) {
       results.push({ timezone: tz, score: 4 });
     }
   }

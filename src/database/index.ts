@@ -1,12 +1,12 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
-import * as schema from "./schema";
+import { users } from "./schema"; // Only import what we actually use
 
 export const Database = drizzle({
   connection: {
     connectionString: process.env["DATABASE_URL"]!,
   },
-  schema,
 });
 
-export * from "./schema";
+// Export only essential schema parts
+export { users };

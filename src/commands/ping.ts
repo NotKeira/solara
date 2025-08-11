@@ -40,7 +40,7 @@ export class PingCommand implements Command {
     });
     const memory = memoryUsage();
 
-    const heapLimitMB: number = 200;
+    const heapLimitMB: number = 1024;
     const heapLimitBytes: number = heapLimitMB * 1024 * 1024;
     const heapUsedMB: number = memory.heapUsed / 1024 / 1024;
     const heapTotalMB: number = memory.heapTotal / 1024 / 1024;
