@@ -61,96 +61,101 @@ export const COMMON_TIMEZONES = [
   "Africa/Casablanca",
 ];
 
-// Country to timezone mapping for autocomplete
-export const COUNTRY_TIMEZONES: Record<string, string[]> = {
-  "United States": [
-    "America/New_York", // Eastern
-    "America/Chicago", // Central
-    "America/Denver", // Mountain
-    "America/Los_Angeles", // Pacific
-    "America/Anchorage", // Alaska
-    "Pacific/Honolulu", // Hawaii
-  ],
-  Canada: [
-    "America/St_Johns", // Newfoundland
-    "America/Halifax", // Atlantic
-    "America/Toronto", // Eastern
-    "America/Winnipeg", // Central
-    "America/Edmonton", // Mountain
-    "America/Vancouver", // Pacific
-  ],
-  "United Kingdom": ["Europe/London"],
-  Ireland: ["Europe/Dublin"],
-  France: ["Europe/Paris"],
-  Germany: ["Europe/Berlin"],
-  Italy: ["Europe/Rome"],
-  Spain: ["Europe/Madrid"],
-  Netherlands: ["Europe/Amsterdam"],
-  Belgium: ["Europe/Brussels"],
-  Switzerland: ["Europe/Zurich"],
-  Austria: ["Europe/Vienna"],
-  "Czech Republic": ["Europe/Prague"],
-  Poland: ["Europe/Warsaw"],
-  Sweden: ["Europe/Stockholm"],
-  Norway: ["Europe/Oslo"],
-  Finland: ["Europe/Helsinki"],
-  Denmark: ["Europe/Copenhagen"],
-  Greece: ["Europe/Athens"],
-  Turkey: ["Europe/Istanbul"],
-  Russia: [
-    "Europe/Moscow", // Moscow Time
-    "Asia/Yekaterinburg", // Yekaterinburg Time
-    "Asia/Novosibirsk", // Novosibirsk Time
-    "Asia/Krasnoyarsk", // Krasnoyarsk Time
-    "Asia/Irkutsk", // Irkutsk Time
-    "Asia/Yakutsk", // Yakutsk Time
-    "Asia/Vladivostok", // Vladivostok Time
-    "Asia/Magadan", // Magadan Time
-    "Asia/Kamchatka", // Kamchatka Time
-  ],
-  Japan: ["Asia/Tokyo"],
-  "South Korea": ["Asia/Seoul"],
-  China: ["Asia/Shanghai"],
-  "Hong Kong": ["Asia/Hong_Kong"],
-  Singapore: ["Asia/Singapore"],
-  Thailand: ["Asia/Bangkok"],
-  Indonesia: [
-    "Asia/Jakarta", // Western Indonesia Time
-    "Asia/Makassar", // Central Indonesia Time
-    "Asia/Jayapura", // Eastern Indonesia Time
-  ],
-  Philippines: ["Asia/Manila"],
-  Taiwan: ["Asia/Taipei"],
-  India: ["Asia/Kolkata"],
-  UAE: ["Asia/Dubai"],
-  "Saudi Arabia": ["Asia/Riyadh"],
-  Australia: [
-    "Australia/Perth", // Western Australia
-    "Australia/Adelaide", // Central Australia
-    "Australia/Darwin", // Northern Territory
-    "Australia/Brisbane", // Queensland
-    "Australia/Sydney", // New South Wales
-    "Australia/Melbourne", // Victoria
-    "Australia/Hobart", // Tasmania
-  ],
-  "New Zealand": ["Pacific/Auckland"],
-  Brazil: [
-    "America/Sao_Paulo", // Brasilia Time
-    "America/Manaus", // Amazon Time
-    "America/Fortaleza", // Brasilia Time (Northeast)
-    "America/Noronha", // Fernando de Noronha Time
-  ],
-  Mexico: [
-    "America/Mexico_City", // Central Time
-    "America/Cancun", // Eastern Time
-    "America/Chihuahua", // Mountain Time
-    "America/Tijuana", // Pacific Time
-  ],
-  Egypt: ["Africa/Cairo"],
-  Nigeria: ["Africa/Lagos"],
-  "South Africa": ["Africa/Johannesburg"],
-  Morocco: ["Africa/Casablanca"],
-};
+// Country to timezone mapping for autocomplete (lazy-loaded)
+let COUNTRY_TIMEZONES_CACHE: Record<string, string[]> | null = null;
+
+export function getCountryTimezones(): Record<string, string[]> {
+  COUNTRY_TIMEZONES_CACHE ??= {
+    "United States": [
+      "America/New_York", // Eastern
+      "America/Chicago", // Central
+      "America/Denver", // Mountain
+      "America/Los_Angeles", // Pacific
+      "America/Anchorage", // Alaska
+      "Pacific/Honolulu", // Hawaii
+    ],
+    Canada: [
+      "America/St_Johns", // Newfoundland
+      "America/Halifax", // Atlantic
+      "America/Toronto", // Eastern
+      "America/Winnipeg", // Central
+      "America/Edmonton", // Mountain
+      "America/Vancouver", // Pacific
+    ],
+    "United Kingdom": ["Europe/London"],
+    Ireland: ["Europe/Dublin"],
+    France: ["Europe/Paris"],
+    Germany: ["Europe/Berlin"],
+    Italy: ["Europe/Rome"],
+    Spain: ["Europe/Madrid"],
+    Netherlands: ["Europe/Amsterdam"],
+    Belgium: ["Europe/Brussels"],
+    Switzerland: ["Europe/Zurich"],
+    Austria: ["Europe/Vienna"],
+    "Czech Republic": ["Europe/Prague"],
+    Poland: ["Europe/Warsaw"],
+    Sweden: ["Europe/Stockholm"],
+    Norway: ["Europe/Oslo"],
+    Finland: ["Europe/Helsinki"],
+    Denmark: ["Europe/Copenhagen"],
+    Greece: ["Europe/Athens"],
+    Turkey: ["Europe/Istanbul"],
+    Russia: [
+      "Europe/Moscow", // Moscow Time
+      "Asia/Yekaterinburg", // Yekaterinburg Time
+      "Asia/Novosibirsk", // Novosibirsk Time
+      "Asia/Krasnoyarsk", // Krasnoyarsk Time
+      "Asia/Irkutsk", // Irkutsk Time
+      "Asia/Yakutsk", // Yakutsk Time
+      "Asia/Vladivostok", // Vladivostok Time
+      "Asia/Magadan", // Magadan Time
+      "Asia/Kamchatka", // Kamchatka Time
+    ],
+    Japan: ["Asia/Tokyo"],
+    "South Korea": ["Asia/Seoul"],
+    China: ["Asia/Shanghai"],
+    "Hong Kong": ["Asia/Hong_Kong"],
+    Singapore: ["Asia/Singapore"],
+    Thailand: ["Asia/Bangkok"],
+    Indonesia: [
+      "Asia/Jakarta", // Western Indonesia Time
+      "Asia/Makassar", // Central Indonesia Time
+      "Asia/Jayapura", // Eastern Indonesia Time
+    ],
+    Philippines: ["Asia/Manila"],
+    Taiwan: ["Asia/Taipei"],
+    India: ["Asia/Kolkata"],
+    UAE: ["Asia/Dubai"],
+    "Saudi Arabia": ["Asia/Riyadh"],
+    Australia: [
+      "Australia/Perth", // Western Australia
+      "Australia/Adelaide", // Central Australia
+      "Australia/Darwin", // Northern Territory
+      "Australia/Brisbane", // Queensland
+      "Australia/Sydney", // New South Wales
+      "Australia/Melbourne", // Victoria
+      "Australia/Hobart", // Tasmania
+    ],
+    "New Zealand": ["Pacific/Auckland"],
+    Brazil: [
+      "America/Sao_Paulo", // Brasilia Time
+      "America/Manaus", // Amazon Time
+      "America/Fortaleza", // Brasilia Time (Northeast)
+      "America/Noronha", // Fernando de Noronha Time
+    ],
+    Mexico: [
+      "America/Mexico_City", // Central Time
+      "America/Cancun", // Eastern Time
+      "America/Chihuahua", // Mountain Time
+      "America/Tijuana", // Pacific Time
+    ],
+    Egypt: ["Africa/Cairo"],
+    Nigeria: ["Africa/Lagos"],
+    "South Africa": ["Africa/Johannesburg"],
+    Morocco: ["Africa/Casablanca"],
+  };
+  return COUNTRY_TIMEZONES_CACHE;
+}
 
 /**
  * Validates if a timezone string is a valid IANA timezone
@@ -250,17 +255,8 @@ export function getTimezoneDisplayName(timezone: string): string {
  * Filters timezones based on search query for autocomplete
  */
 export function filterTimezones(query: string, limit: number = 25): string[] {
-  console.log(
-    `[DEBUG] filterTimezones called with query: "${query}", limit: ${limit}`
-  );
-
   if (!query) {
-    const result = COMMON_TIMEZONES.slice(0, limit);
-    console.log(
-      `[DEBUG] No query, returning ${result.length} common timezones:`,
-      result.slice(0, 5)
-    );
-    return result;
+    return COMMON_TIMEZONES.slice(0, limit);
   }
 
   const lowercaseQuery = query.toLowerCase();
@@ -277,21 +273,15 @@ export function filterTimezones(query: string, limit: number = 25): string[] {
 
   // Sort by score and return unique timezones
   const sortedResults = results.toSorted((a, b) => b.score - a.score);
-  const finalResults = sortedResults.map((r) => r.timezone).slice(0, limit);
-
-  console.log(
-    `[DEBUG] Found ${results.length} total matches, returning ${finalResults.length} results:`,
-    finalResults.slice(0, 5)
-  );
-
-  return finalResults;
+  return sortedResults.map((r) => r.timezone).slice(0, limit);
 }
 
 function addCountryMatches(
   query: string,
   results: { timezone: string; score: number }[]
 ): void {
-  for (const [country, timezones] of Object.entries(COUNTRY_TIMEZONES)) {
+  const countryTimezones = getCountryTimezones();
+  for (const [country, timezones] of Object.entries(countryTimezones)) {
     if (country.toLowerCase().includes(query)) {
       for (const tz of timezones) {
         results.push({ timezone: tz, score: 10 });
@@ -339,10 +329,6 @@ function addCityMatches(
  * Filters countries based on search query for autocomplete
  */
 export function filterCountries(query: string, limit: number = 25): string[] {
-  console.log(
-    `[DEBUG] filterCountries called with query: "${query}", limit: ${limit}`
-  );
-
   if (!query) {
     const popularCountries = [
       "United States",
@@ -364,18 +350,14 @@ export function filterCountries(query: string, limit: number = 25): string[] {
       "Denmark",
       "Poland",
     ];
-    console.log(
-      `[DEBUG] No query provided, returning ${
-        popularCountries.slice(0, limit).length
-      } popular countries`
-    );
     return popularCountries.slice(0, limit);
   }
 
   const lowercaseQuery = query.toLowerCase();
   const results: { country: string; score: number }[] = [];
+  const countryTimezones = getCountryTimezones();
 
-  for (const country of Object.keys(COUNTRY_TIMEZONES)) {
+  for (const country of Object.keys(countryTimezones)) {
     const score = calculateCountryScore(country.toLowerCase(), lowercaseQuery);
     if (score > 0) {
       results.push({ country, score });
@@ -387,13 +369,7 @@ export function filterCountries(query: string, limit: number = 25): string[] {
     return a.country.localeCompare(b.country);
   });
 
-  const finalResults = sortedResults.map((r) => r.country).slice(0, limit);
-  console.log(
-    `[DEBUG] filterCountries found ${results.length} matches, returning top ${finalResults.length}:`,
-    finalResults
-  );
-
-  return finalResults;
+  return sortedResults.map((r) => r.country).slice(0, limit);
 }
 
 function calculateCountryScore(

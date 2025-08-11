@@ -8,7 +8,7 @@
     "dev": "pnpm exec tsx src/index.ts",
     "prod": "pnpm clean && pnpm build",
     "build": "tsc && tsc-alias",
-    "start": "node -r tsconfig-paths/register dist/index.js",
+    "start": "node --max-old-space-size=128 --optimize-for-size -r tsconfig-paths/register dist/index.js",
     "refresh": "pnpm exec tsx src/deploy-commands.ts",
     "clean": "rm -rf dist",
     "db:push": "drizzle-kit push --config src/drizzle.config.ts",

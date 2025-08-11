@@ -4,7 +4,7 @@ import {
   setUserTimezone,
   formatTimeInTimezone,
   getTimezoneDisplayName,
-  COUNTRY_TIMEZONES,
+  getCountryTimezones,
   isValidTimezone,
 } from "@/utils/timezone";
 import {
@@ -103,7 +103,7 @@ export class TZCommand implements Command {
 
   private async handleFindCommand(interaction: any): Promise<void> {
     const country: string = interaction.options.getString("country", true);
-    const timezones = COUNTRY_TIMEZONES[country];
+    const timezones = getCountryTimezones()[country];
 
     if (!timezones || timezones.length === 0) {
       await interaction.reply({

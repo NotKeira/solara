@@ -17,9 +17,7 @@ if (!token) {
 const client: ExtendedClient = new Client({
   intents: [
     Intents.Guilds,
-    Intents.GuildMembers,
-    Intents.MessageContent,
-    Intents.GuildMessages,
+    Intents.GuildMembers, // Only if you need member events
   ],
 }) as ExtendedClient;
 
