@@ -85,71 +85,152 @@ export const guildSettings = pgTable("guild_settings", {
   modLogChannelId: text("mod_log_channel_id"),
   messageLogChannelId: text("message_log_channel_id"),
   joinLogChannelId: text("join_log_channel_id"),
-  // Welcome/Farewell system
+  // Welcome system
+  welcomeEnabled: boolean("welcome_enabled").default(false).notNull(),
   welcomeChannelId: text("welcome_channel_id"),
   welcomeMessage: text("welcome_message"),
-  farewellChannelId: text("farewell_channel_id"),
-  farewellMessage: text("farewell_message"),
+  // Leave system
+  leaveEnabled: boolean("leave_enabled").default(false).notNull(),
+  leaveChannelId: text("leave_channel_id"),
+  leaveMessage: text("leave_message"),
   // Auto-moderation settings
   autoModEnabled: boolean("auto_mod_enabled").default(false).notNull(),
   antiSpamEnabled: boolean("anti_spam_enabled").default(false).notNull(),
   antiRaidEnabled: boolean("anti_raid_enabled").default(false).notNull(),
-  // Misc settings
+  // Moderation settings
   muteRoleId: text("mute_role_id"),
   maxWarnings: integer("max_warnings").default(3),
   warningExpiry: bigint("warning_expiry", { mode: "number" }).default(
     2592000000
   ), // 30 days in ms
+  // Case system settings
+  caseNumbering: text("case_numbering").default("auto").notNull(), // 'auto', 'manual'
+  caseDmEnabled: boolean("case_dm_enabled").default(true).notNull(), // DM users about their cases
+  publicCasesEnabled: boolean("public_cases_enabled").default(false).notNull(), // Allow public case viewing
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // ========================
-// MODERATION SYSTEM
+// MODERATION CASE SYSTEM
 // ========================
 
-export const moderationActions = pgTable("moderation_actions", {
-  id: text("id").primaryKey(), // UUID
-  type: text("type").notNull(), // 'ban', 'kick', 'timeout', 'warn', 'unban', 'untimeout'
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id),
+export const moderationCases = pgTable("moderation_cases", {
+  id: text("id").primaryKey(), // Full UUID
+  caseId: text("case_id").notNull(), // 10-character phone-friendly display ID
   guildId: text("guild_id")
     .notNull()
     .references(() => guilds.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // 'ban', 'kick', 'timeout', 'warn', 'unban', 'untimeout', 'note', 'massban', 'masskick', 'masswarn', 'massmute'
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
   moderatorId: text("moderator_id")
     .notNull()
     .references(() => users.id),
   reason: text("reason"),
-  evidence: text("evidence"), // Links to messages/images/etc
+  reasonId: text("reason_id").references(() => predefinedReasons.id), // Link to predefined reason
+  evidence: text("evidence").array(), // Array of links to messages/images/etc
   duration: bigint("duration", { mode: "number" }), // Duration in milliseconds
   active: boolean("active").default(true).notNull(),
+  closed: boolean("closed").default(false).notNull(),
+  closedAt: timestamp("closed_at"),
+  closedBy: text("closed_by").references(() => users.id),
+  closeReason: text("close_reason"),
+  // Appeal system
   appealed: boolean("appealed").default(false).notNull(),
   appealReason: text("appeal_reason"),
   appealedAt: timestamp("appealed_at"),
   appealedBy: text("appealed_by").references(() => users.id),
+  appealDecision: text("appeal_decision"), // 'approved', 'denied', 'pending'
+  appealDecisionBy: text("appeal_decision_by").references(() => users.id),
+  appealDecisionAt: timestamp("appeal_decision_at"),
+  appealDecisionReason: text("appeal_decision_reason"),
+  // Mass action reference
+  massActionId: text("mass_action_id").references(() => massActions.id),
+  // Metadata
+  messageId: text("message_id"), // Discord message ID for the infraction
+  channelId: text("channel_id"), // Discord channel ID where infraction occurred
+  attachments: text("attachments").array(), // File attachments for evidence
+  notes: text("notes"), // Internal moderator notes
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
   expiresAt: timestamp("expires_at"),
 });
 
-export const warnings = pgTable("warnings", {
+// Mass moderation actions (for tracking bulk operations)
+export const massActions = pgTable("mass_actions", {
   id: text("id").primaryKey(), // UUID
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id),
   guildId: text("guild_id")
     .notNull()
     .references(() => guilds.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // 'massban', 'masskick', 'masswarn', 'massmute'
   moderatorId: text("moderator_id")
     .notNull()
     .references(() => users.id),
-  reason: text("reason").notNull(),
-  evidence: text("evidence"),
-  active: boolean("active").default(true).notNull(),
-  acknowledged: boolean("acknowledged").default(false).notNull(),
-  acknowledgedAt: timestamp("acknowledged_at"),
+  reason: text("reason"),
+  reasonId: text("reason_id").references(() => predefinedReasons.id),
+  targetCount: integer("target_count").notNull(), // Total users targeted
+  successCount: integer("success_count").default(0).notNull(), // Successfully processed
+  failureCount: integer("failure_count").default(0).notNull(), // Failed to process
+  status: text("status").default("pending").notNull(), // 'pending', 'in_progress', 'completed', 'failed'
+  duration: bigint("duration", { mode: "number" }), // For mass mutes/timeouts
   createdAt: timestamp("created_at").defaultNow().notNull(),
-  expiresAt: timestamp("expires_at"),
+  completedAt: timestamp("completed_at"),
+});
+
+// Predefined reasons system
+export const predefinedReasons = pgTable("predefined_reasons", {
+  id: text("id").primaryKey(), // UUID
+  guildId: text("guild_id")
+    .notNull()
+    .references(() => guilds.id, { onDelete: "cascade" }),
+  name: text("name").notNull(), // Display name for the reason
+  reason: text("reason").notNull(), // The actual reason text
+  type: text("type").notNull(), // 'ban', 'kick', 'timeout', 'warn', 'unban', 'untimeout', 'note', 'all'
+  duration: bigint("duration", { mode: "number" }), // Default duration for this reason (optional)
+  severity: integer("severity").default(1).notNull(), // 1-5 severity scale
+  autoDelete: boolean("auto_delete").default(false).notNull(), // Auto-delete messages when using this reason
+  active: boolean("active").default(true).notNull(),
+  usageCount: integer("usage_count").default(0).notNull(), // Track how often it's used
+  createdBy: text("created_by")
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Case linking system (for cross-server case sharing)
+export const caseLinks = pgTable("case_links", {
+  id: text("id").primaryKey(), // UUID
+  sourceGuildId: text("source_guild_id")
+    .notNull()
+    .references(() => guilds.id, { onDelete: "cascade" }),
+  targetGuildId: text("target_guild_id")
+    .notNull()
+    .references(() => guilds.id, { onDelete: "cascade" }),
+  linkType: text("link_type").default("bidirectional").notNull(), // 'bidirectional', 'source_to_target', 'target_to_source'
+  active: boolean("active").default(true).notNull(),
+  createdBy: text("created_by")
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Case updates/edits tracking
+export const caseUpdates = pgTable("case_updates", {
+  id: text("id").primaryKey(), // UUID
+  caseId: text("case_id")
+    .notNull()
+    .references(() => moderationCases.id, { onDelete: "cascade" }),
+  updatedBy: text("updated_by")
+    .notNull()
+    .references(() => users.id),
+  field: text("field").notNull(), // Field that was updated
+  oldValue: text("old_value"), // Previous value
+  newValue: text("new_value"), // New value
+  reason: text("reason"), // Reason for the update
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // ========================
@@ -199,11 +280,20 @@ export type NewGuildMember = typeof guildMembers.$inferInsert;
 export type GuildSettings = typeof guildSettings.$inferSelect;
 export type NewGuildSettings = typeof guildSettings.$inferInsert;
 
-export type ModerationAction = typeof moderationActions.$inferSelect;
-export type NewModerationAction = typeof moderationActions.$inferInsert;
+export type ModerationCase = typeof moderationCases.$inferSelect;
+export type NewModerationCase = typeof moderationCases.$inferInsert;
 
-export type Warning = typeof warnings.$inferSelect;
-export type NewWarning = typeof warnings.$inferInsert;
+export type MassAction = typeof massActions.$inferSelect;
+export type NewMassAction = typeof massActions.$inferInsert;
+
+export type PredefinedReason = typeof predefinedReasons.$inferSelect;
+export type NewPredefinedReason = typeof predefinedReasons.$inferInsert;
+
+export type CaseLink = typeof caseLinks.$inferSelect;
+export type NewCaseLink = typeof caseLinks.$inferInsert;
+
+export type CaseUpdate = typeof caseUpdates.$inferSelect;
+export type NewCaseUpdate = typeof caseUpdates.$inferInsert;
 
 export type AutoModRule = typeof autoModRules.$inferSelect;
 export type NewAutoModRule = typeof autoModRules.$inferInsert;
