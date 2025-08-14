@@ -7,6 +7,7 @@ export class ReadyEvent implements Event {
 
   execute(client: ExtendedClient): void {
     console.log(`Bot is ready! Logged in as ${client.user?.tag}`);
+    console.log(client.ws.ping)
   }
 }
 

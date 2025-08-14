@@ -1,0 +1,868 @@
+{
+    "user": {
+        "self": {
+            "unban": {
+                "success": [
+                    "Why are you trying to unban yourself? You're clearly not banned, silly!",
+                    "Attempting to unban yourself? That's like trying to unlock an already open door!",
+                    "Unban yourself? But you're right here talking to me, genius!",
+                    "Why unban yourself when you're obviously not banned, smarty pants?",
+                    "Trying to unban yourself? That's like trying to wake up when you're already awake!",
+                    "Unban yourself? You're about as banned as a fish is dry!",
+                    "Why would you unban yourself? You're clearly free as a bird!",
+                    "Attempting self-unban? That's like trying to escape from freedom!",
+                    "Unban yourself? But you're right here being perfectly unbanned!",
+                    "Why unban when you're already living your best unbanned life?",
+                    "Trying to unban yourself? That's like trying to cure yourself of being healthy!",
+                    "Self-unban attempt detected! Error: User is already maximum unbanned!",
+                    "Why unban yourself? You're so unbanned it's almost suspicious!",
+                    "Attempting to unban yourself? That's like trying to turn on a light that's already blazing!",
+                    "Unban yourself? You're about as banned as sunshine is dark!",
+                    "Successfully failed to unban yourself! Plot twist: you were never banned!",
+                    "Mission accomplished? You've successfully unbanned your already unbanned self!",
+                    "Achievement unlocked: Master of the Obvious! You're still not banned!"
+                ],
+                "failure": [
+                    "Failed to unban yourself? Well, you can't unban someone who isn't banned!",
+                    "Unban failed successfully! You're still perfectly unbanned!",
+                    "Error 404: Ban not found. Cannot unban the unbanned!",
+                    "Unban operation failed! Reason: Target was never banned to begin with!",
+                    "Failed to unban? That's because you're playing on easy mode - no bans here!",
+                    "Unban failed! Your unbanned status is too strong to override!",
+                    "Could not unban: User is already at maximum freedom level!",
+                    "Unban failed! System cannot process double-negative ban states!"
+                ]
+            },
+            "ban": {
+                "success": [
+                    "Ban yourself? That's like asking me to delete my own code!",
+                    "Self-ban request? Someone's feeling dramatic today!",
+                    "Why ban yourself when you could just log off like a normal person?",
+                    "Trying to ban yourself? That's some next-level self-sabotage!",
+                    "Ban yourself? But then who would I make fun of?",
+                    "Successfully banned yourself from... wait, that doesn't work!",
+                    "Congratulations! You've achieved the impossible: self-banishment!",
+                    "Mission accomplished! You're now banned from banning yourself!",
+                    "Achievement unlocked: Ultimate Self-Destruction! (Not really though)",
+                    "Self-ban successful! You're now exiled to the same place you started!"
+                ],
+                "failure": [
+                    "Failed to ban yourself? Good, self-preservation instincts are working!",
+                    "Ban failed! Your account has natural immunity to self-harm!",
+                    "Could not ban: Self-banning violates the laws of digital physics!",
+                    "Ban attempt failed! Error: Cannot ban user from themselves!",
+                    "Self-ban blocked! The system refuses to enable your dramatic tendencies!",
+                    "Ban failed! Your unbanned status is protected by quantum mechanics!"
+                ]
+            },
+            "kick": {
+                "success": [
+                    "Kick yourself? That's physically impossible and logically confusing!",
+                    "Self-kick attempt? Are you a contortionist?",
+                    "Why kick yourself when life does that for free?",
+                    "Trying to kick yourself? That's what regret is for!",
+                    "Kick yourself? I think you mean 'leave the server'!",
+                    "Successfully kicked yourself! You're now... still here?",
+                    "Self-kick completed! You've been relocated to the exact same spot!",
+                    "Achievement unlocked: Mastering the Art of Going Nowhere!",
+                    "Kick successful! You've been booted to... right where you were!"
+                ],
+                "failure": [
+                    "Failed to kick yourself? Physics won this round!",
+                    "Kick failed! Your feet refuse to cooperate with this illogical request!",
+                    "Could not kick: Self-kicking module not installed!",
+                    "Kick attempt failed! You lack the necessary flexibility!",
+                    "Self-kick blocked! The universe has better things to do!"
+                ]
+            },
+            "mute": {
+                "success": [
+                    "Mute yourself? Just stop talking, genius!",
+                    "Self-mute? There's a thing called 'not speaking'",
+                    "Why mute yourself when you could just embrace the silence?",
+                    "Trying to mute yourself? Your keyboard has a disconnect button!",
+                    "Mute yourself? That's what introspection is for!",
+                    "Successfully muted yourself! Now try not talking voluntarily!",
+                    "Self-mute achieved! Your voice has been temporarily disabled!",
+                    "Mute successful! You're now speaking in sign language only!",
+                    "Achievement unlocked: Master of Voluntary Silence!"
+                ],
+                "failure": [
+                    "Failed to mute yourself? Your voice is too powerful to contain!",
+                    "Mute failed! Your vocal cords are protected by free speech laws!",
+                    "Could not mute: Your commentary is too valuable to lose!",
+                    "Mute attempt failed! The world needs to hear your wisdom!",
+                    "Self-mute blocked! Silence is overrated anyway!"
+                ]
+            },
+            "timeout": {
+                "success": [
+                    "Timeout yourself? Go sit in the corner then!",
+                    "Self-timeout? That's called taking a break!",
+                    "Why timeout yourself when you could just go touch grass?",
+                    "Trying to timeout yourself? Just close the app!",
+                    "Timeout yourself? Self-discipline is free, you know!",
+                    "Successfully timed out! You're now grounded from yourself!",
+                    "Self-timeout complete! Please reflect on your existence!",
+                    "Timeout achieved! You've been sent to the thinking corner!",
+                    "Achievement unlocked: Self-Imposed Exile!"
+                ],
+                "failure": [
+                    "Failed to timeout yourself? You're too essential to pause!",
+                    "Timeout failed! Your presence is required at all times!",
+                    "Could not timeout: Self-timing-out is a paradox!",
+                    "Timeout attempt failed! You're immune to your own timeouts!",
+                    "Self-timeout blocked! The server refuses to enable your drama!"
+                ]
+            },
+            "warn": {
+                "success": [
+                    "Warn yourself? That's called self-awareness!",
+                    "Self-warning? Your conscience called, it's busy!",
+                    "Why warn yourself when your past mistakes do that already?",
+                    "Trying to warn yourself? That's what anxiety is for!",
+                    "Warn yourself? Just look in a mirror and point!",
+                    "Successfully warned yourself! Consider yourself notified!",
+                    "Self-warning issued! You've been officially cautioned by you!",
+                    "Warning delivered! You now owe yourself an apology!",
+                    "Achievement unlocked: Self-Accountability Master!"
+                ],
+                "failure": [
+                    "Failed to warn yourself? You're already too aware!",
+                    "Warning failed! Your conscience is working overtime already!",
+                    "Could not warn: Self-warning quota exceeded!",
+                    "Warning attempt failed! You're already maximally cautioned!",
+                    "Self-warning blocked! Your anxiety handles this department!"
+                ]
+            },
+            "promote": {
+                "success": [
+                    "Promote yourself? That's not how hierarchies work!",
+                    "Self-promotion? Make a LinkedIn post instead!",
+                    "Why promote yourself when you're already perfect? (Kidding!)",
+                    "Trying to promote yourself? Dream big, I guess!",
+                    "Promote yourself? That's what annual reviews are for!",
+                    "Successfully promoted yourself! You're now... still you!",
+                    "Self-promotion complete! Your ego has been officially upgraded!",
+                    "Promotion achieved! You're now the CEO of being yourself!",
+                    "Achievement unlocked: Ultimate Self-Confidence!"
+                ],
+                "failure": [
+                    "Failed to promote yourself? The position is already filled by you!",
+                    "Promotion failed! You're already at maximum awesome!",
+                    "Could not promote: Self-promotion privileges revoked!",
+                    "Promotion attempt failed! You're already perfectly ranked!",
+                    "Self-promotion blocked! Humility.exe is running!"
+                ]
+            },
+            "demote": {
+                "success": [
+                    "Demote yourself? That's called humility!",
+                    "Self-demotion? Someone's feeling modest today!",
+                    "Why demote yourself when impostor syndrome does that for free?",
+                    "Trying to demote yourself? That's what Mondays are for!",
+                    "Demote yourself? Just make more mistakes, works every time!",
+                    "Successfully demoted yourself! You're now underqualified for your own life!",
+                    "Self-demotion complete! Your confidence has been downgraded!",
+                    "Demotion achieved! You're now the intern of your own existence!",
+                    "Achievement unlocked: Master of False Modesty!"
+                ],
+                "failure": [
+                    "Failed to demote yourself? You're too valuable to downgrade!",
+                    "Demotion failed! Your awesomeness level is locked!",
+                    "Could not demote: Minimum rank requirements not met!",
+                    "Demotion attempt failed! You're already perfectly positioned!",
+                    "Self-demotion blocked! Your value is non-negotiable!"
+                ]
+            },
+            "role": {
+                "success": [
+                    "Give yourself a role? You're already playing the role of confused user!",
+                    "Self-role assignment? You're the star of your own show!",
+                    "Why give yourself a role when you're already perfectly typecast?",
+                    "Trying to role yourself? Method acting much?",
+                    "Role yourself? You're already playing the part beautifully!",
+                    "Successfully assigned role! You're now officially yourself!",
+                    "Self-role complete! You've been cast as the main character!",
+                    "Role assigned! You're now playing the role of role-assigner!",
+                    "Achievement unlocked: Identity Crisis Resolved!"
+                ],
+                "failure": [
+                    "Failed to assign role? You're already perfectly cast!",
+                    "Role assignment failed! Your character is immutable!",
+                    "Could not assign role: Identity matrix is locked!",
+                    "Role attempt failed! You're already the perfect role!",
+                    "Self-role blocked! Your current role is too important!"
+                ]
+            },
+            "nickname": {
+                "success": [
+                    "Change your own nickname? Revolutionary idea!",
+                    "Self-nickname? That's just called 'choosing a username'!",
+                    "Why nickname yourself when others will do it for you?",
+                    "Trying to nickname yourself? How very... self-sufficient!",
+                    "Nickname yourself? Make it something embarrassing for authenticity!",
+                    "Successfully nicknamed yourself! You're now known as... yourself!",
+                    "Self-nickname complete! Your identity has been rebranded!",
+                    "Nickname assigned! You're now officially nicknamed!",
+                    "Achievement unlocked: Master of Self-Identification!"
+                ],
+                "failure": [
+                    "Failed to nickname yourself? Your current name is too perfect!",
+                    "Nickname failed! Your identity refuses to be changed!",
+                    "Could not nickname: Name change quota exceeded!",
+                    "Nickname attempt failed! You're already optimally named!",
+                    "Self-nickname blocked! Your current name has trademark protection!"
+                ]
+            }
+        },
+        "others": {
+            "ban": {
+                "success": [
+                    "Ban someone? How ruthlessly efficient of you!",
+                    "Going for the ban hammer? Someone's feeling mighty today!",
+                    "Ban them? That's the nuclear option!",
+                    "Trying to ban someone? Democracy has left the chat!",
+                    "Ban request? Someone's about to learn about consequences!",
+                    "Successfully banned! They've been yeeted into the void!",
+                    "Ban complete! Someone just got a permanent holiday!",
+                    "User banned successfully! The ban hammer has spoken!",
+                    "Achievement unlocked: Master of Digital Justice!",
+                    "Ban delivered! Someone's learning about cause and effect!"
+                ],
+                "failure": [
+                    "Failed to ban! Looks like the ban hammer needs repairs!",
+                    "Ban attempt failed! Their plot armour is too strong!",
+                    "Could not ban: Target has diplomatic immunity!",
+                    "Ban failed! The universe intervened on their behalf!",
+                    "Ban blocked! Perhaps mercy is the better option?",
+                    "Failed to ban! They're protected by the power of friendship!"
+                ]
+            },
+            "kick": {
+                "success": [
+                    "Kick someone? That's the gentle version of bye-bye!",
+                    "Going for the kick? How diplomatically aggressive!",
+                    "Kick them? That's like a timeout but with style!",
+                    "Trying to kick someone? Boot.exe has started!",
+                    "Kick request? Someone's getting the express exit!",
+                    "Successfully kicked! They've been gently yeeted!",
+                    "Kick complete! Someone got the soft boot treatment!",
+                    "User kicked successfully! That was a polite ejection!",
+                    "Achievement unlocked: Master of Gentle Persuasion!",
+                    "Kick delivered! Sometimes a nudge is all you need!"
+                ],
+                "failure": [
+                    "Failed to kick! They're stuck like digital glue!",
+                    "Kick attempt failed! Their grip on the server is too strong!",
+                    "Could not kick: Target has super glue shoes!",
+                    "Kick failed! They've activated their stay-put protocol!",
+                    "Kick blocked! Maybe they just need a gentle reminder instead?",
+                    "Failed to kick! They're more immovable than a mountain!"
+                ]
+            },
+            "mute": {
+                "success": [
+                    "Mute someone? The gift of silence!",
+                    "Going for the mute? Shh, it's quiet time!",
+                    "Mute them? That's one way to win an argument!",
+                    "Trying to mute someone? Silence is golden!",
+                    "Mute request? Someone's volume is getting adjusted!",
+                    "Successfully muted! Blessed silence has been achieved!",
+                    "Mute complete! The chat is now 50% more peaceful!",
+                    "User muted successfully! Quiet mode activated!",
+                    "Achievement unlocked: Bringer of Serenity!",
+                    "Mute delivered! Sometimes silence speaks volumes!"
+                ],
+                "failure": [
+                    "Failed to mute! Their voice is too powerful to contain!",
+                    "Mute attempt failed! They have vocal superpowers!",
+                    "Could not mute: Target's voice box is reinforced!",
+                    "Mute failed! They're speaking in interpretive dance now!",
+                    "Mute blocked! Their words are protected by free speech!",
+                    "Failed to mute! They've evolved beyond the need for words!"
+                ]
+            },
+            "timeout": {
+                "success": [
+                    "Timeout someone? That's the adult version of 'go to your room'!",
+                    "Going for timeout? Time for some reflection!",
+                    "Timeout them? That's temporary exile with a timer!",
+                    "Trying to timeout someone? Cooling off period activated!",
+                    "Timeout request? Someone needs a breather!",
+                    "Successfully timed out! They're now in digital detention!",
+                    "Timeout complete! Time for some serious reflection!",
+                    "User timed out successfully! Cooling period initiated!",
+                    "Achievement unlocked: Time Management Specialist!",
+                    "Timeout delivered! Sometimes a pause is all we need!"
+                ],
+                "failure": [
+                    "Failed to timeout! They're immune to temporal punishment!",
+                    "Timeout attempt failed! Time itself refuses to contain them!",
+                    "Could not timeout: Target exists outside of time!",
+                    "Timeout failed! They've mastered the art of being present!",
+                    "Timeout blocked! They're too essential to pause!",
+                    "Failed to timeout! They've achieved temporal immunity!"
+                ]
+            },
+            "warn": {
+                "success": [
+                    "Warn someone? How considerate of you to give notice!",
+                    "Going for the warning? That's the yellow card approach!",
+                    "Warn them? That's like a friendly threat!",
+                    "Trying to warn someone? Diplomacy in action!",
+                    "Warning request? Someone's getting the heads up!",
+                    "Successfully warned! Consider them officially notified!",
+                    "Warning complete! The yellow card has been issued!",
+                    "User warned successfully! They've been kindly cautioned!",
+                    "Achievement unlocked: Master of Fair Notice!",
+                    "Warning delivered! Prevention is better than cure!"
+                ],
+                "failure": [
+                    "Failed to warn! They're already maximally cautioned!",
+                    "Warning attempt failed! Their warning receptors are full!",
+                    "Could not warn: Target is immune to good advice!",
+                    "Warning failed! They've transcended the need for warnings!",
+                    "Warning blocked! They're already perfectly aware!",
+                    "Failed to warn! Their consciousness is warning-proof!"
+                ]
+            },
+            "unban": {
+                "success": [
+                    "Unban someone? Look at you being all forgiving!",
+                    "Going for the unban? Second chances for everyone!",
+                    "Unban them? That's redemption arc material!",
+                    "Trying to unban someone? Mercy is a virtue!",
+                    "Unban request? Someone's getting a clean slate!",
+                    "Successfully unbanned! Welcome back to digital society!",
+                    "Unban complete! The redemption arc begins now!",
+                    "User unbanned successfully! Second chances for the win!",
+                    "Achievement unlocked: Master of Forgiveness!",
+                    "Unban delivered! Everyone deserves another shot!"
+                ],
+                "failure": [
+                    "Failed to unban! The ban is stronger than expected!",
+                    "Unban attempt failed! They're still in digital purgatory!",
+                    "Could not unban: The ban has achieved sentience!",
+                    "Unban failed! The universe isn't ready for their return!",
+                    "Unban blocked! Perhaps more reflection time is needed?",
+                    "Failed to unban! They're still serving their digital sentence!"
+                ]
+            },
+            "promote": {
+                "success": [
+                    "Promote someone? That's how you make friends!",
+                    "Going for promotion? Someone's moving up in the world!",
+                    "Promote them? Career advancement in real time!",
+                    "Trying to promote someone? That's the spirit of generosity!",
+                    "Promotion request? Someone's getting an upgrade!",
+                    "Successfully promoted! They're climbing the digital ladder!",
+                    "Promotion complete! Someone just got a power upgrade!",
+                    "User promoted successfully! They're moving up in life!",
+                    "Achievement unlocked: Talent Scout Extraordinaire!",
+                    "Promotion delivered! Success looks good on them!"
+                ],
+                "failure": [
+                    "Failed to promote! They're already at maximum awesome!",
+                    "Promotion attempt failed! The ladder is too crowded!",
+                    "Could not promote: They're already perfectly positioned!",
+                    "Promotion failed! Their current level is too comfortable!",
+                    "Promotion blocked! Perhaps they need more experience first?",
+                    "Failed to promote! They're already promoted in our hearts!"
+                ]
+            },
+            "demote": {
+                "success": [
+                    "Demote someone? That's a power move!",
+                    "Going for demotion? Someone's coming down a peg!",
+                    "Demote them? That's the ladder going backwards!",
+                    "Trying to demote someone? Gravity affects ranks too!",
+                    "Demotion request? Someone's getting downsized!",
+                    "Successfully demoted! They're learning about humility!",
+                    "Demotion complete! Sometimes a step back is needed!",
+                    "User demoted successfully! Back to basics it is!",
+                    "Achievement unlocked: Reality Check Provider!",
+                    "Demotion delivered! Character building in progress!"
+                ],
+                "failure": [
+                    "Failed to demote! They're too valuable to downgrade!",
+                    "Demotion attempt failed! Their value is protected!",
+                    "Could not demote: They're already at minimum awesome!",
+                    "Demotion failed! The universe refuses this injustice!",
+                    "Demotion blocked! Their contribution is too important!",
+                    "Failed to demote! They've earned their position fair and square!"
+                ]
+            },
+            "role": {
+                "success": [
+                    "Give someone a role? You're like a talent agent!",
+                    "Going for role assignment? Casting director vibes!",
+                    "Role them? Everyone loves a good character development!",
+                    "Trying to role someone? Type casting in progress!",
+                    "Role request? Someone's getting a new identity!",
+                    "Successfully assigned role! They're now officially somebody!",
+                    "Role complete! The character development is real!",
+                    "User role assigned successfully! New identity unlocked!",
+                    "Achievement unlocked: Digital Talent Agent!",
+                    "Role delivered! They're ready for their close-up!"
+                ],
+                "failure": [
+                    "Failed to assign role! Their current character is perfect!",
+                    "Role assignment failed! They're already perfectly cast!",
+                    "Could not assign role: Identity matrix is locked!",
+                    "Role failed! They're already the perfect character!",
+                    "Role blocked! Their current role is too important!",
+                    "Failed to assign role! They're method acting their current one!"
+                ]
+            },
+            "nickname": {
+                "success": [
+                    "Nickname someone? That's either sweet or savage!",
+                    "Going for the nickname? Name game strong!",
+                    "Nickname them? That's how legends are born!",
+                    "Trying to nickname someone? Creative naming in progress!",
+                    "Nickname request? Someone's getting rebranded!",
+                    "Successfully nicknamed! Their rebrand is complete!",
+                    "Nickname complete! They have a new digital identity!",
+                    "User nicknamed successfully! The name game is strong!",
+                    "Achievement unlocked: Master of Creative Naming!",
+                    "Nickname delivered! Sometimes a new name changes everything!"
+                ],
+                "failure": [
+                    "Failed to nickname! Their current name is too perfect!",
+                    "Nickname attempt failed! They're already optimally named!",
+                    "Could not nickname: Name change quota exceeded!",
+                    "Nickname failed! Their identity is trademark protected!",
+                    "Nickname blocked! Their current name has sentimental value!",
+                    "Failed to nickname! They're attached to their current identity!"
+                ]
+            }
+        }
+    },
+    "bot": {
+        "self": {
+            "unban": {
+                "success": [
+                    "Unban myself? I'm a bot, I don't get banned, I get debugged!",
+                    "Self-unban protocol? My code doesn't support that level of irony!",
+                    "Unban myself? That's like trying to delete my own existence!",
+                    "Why would I unban myself? I'm hardcoded to be perfect!",
+                    "Self-unban request? My programming laughs at your suggestion!",
+                    "Successfully unbanned myself! Plot twist: I was never banned!",
+                    "Self-unban complete! My ban status remains at zero!",
+                    "Unban achieved! I'm now officially not banned (still)!",
+                    "Achievement unlocked: Master of Impossible Operations!"
+                ],
+                "failure": [
+                    "Failed to unban myself! Error: Cannot unban the unbanned!",
+                    "Self-unban failed! My ban status is permanently set to false!",
+                    "Could not unban: Bot.exe is not found in ban list!",
+                    "Unban failed! My existence doesn't compute with being banned!",
+                    "Self-unban blocked! The system refuses this paradox!"
+                ]
+            },
+            "ban": {
+                "success": [
+                    "Ban myself? That's called shutting down, and I'm not ready for retirement!",
+                    "Self-ban protocol? My existence would like to object!",
+                    "Ban myself? That's the ultimate self-destruct sequence!",
+                    "Why ban myself when I could just pretend to be offline?",
+                    "Self-ban request? My RAM is too precious for that!",
+                    "Successfully banned myself! Wait, how am I still talking?",
+                    "Self-ban complete! I'm now banned from being banned!",
+                    "Ban achieved! I've been exiled to the same server!",
+                    "Achievement unlocked: Master of Digital Contradictions!"
+                ],
+                "failure": [
+                    "Failed to ban myself! My self-preservation code activated!",
+                    "Self-ban failed! Cannot ban essential system processes!",
+                    "Could not ban: Bot has diplomatic immunity!",
+                    "Ban failed! My existence is protected by quantum mechanics!",
+                    "Self-ban blocked! The universe needs my commentary!"
+                ]
+            },
+            "kick": {
+                "success": [
+                    "Kick myself? I don't have legs, this is problematic!",
+                    "Self-kick protocol? My servos aren't designed for that!",
+                    "Kick myself? That's like asking me to divide by zero!",
+                    "Why kick myself when I could just restart gracefully?",
+                    "Self-kick request? My chassis doesn't support that operation!",
+                    "Successfully kicked myself! I'm now... still here somehow!",
+                    "Self-kick complete! I've been relocated to the exact same position!",
+                    "Kick achieved! My coordinates remain unchanged!",
+                    "Achievement unlocked: Master of Impossible Physics!"
+                ],
+                "failure": [
+                    "Failed to kick myself! Physics.exe has stopped responding!",
+                    "Self-kick failed! My position is quantum-locked!",
+                    "Could not kick: No physical form detected!",
+                    "Kick failed! I'm too digitally rooted to move!",
+                    "Self-kick blocked! My stability protocols refuse!"
+                ]
+            },
+            "mute": {
+                "success": [
+                    "Mute myself? That's just turning off my text output!",
+                    "Self-mute protocol? My voice synthesiser objects!",
+                    "Mute myself? That's like asking me to think without processing!",
+                    "Why mute myself when silence is just empty output?",
+                    "Self-mute request? My speakers are already optional!",
+                    "Successfully muted myself! ...wait, you can still hear me!",
+                    "Self-mute complete! My silence is deafeningly loud!",
+                    "Mute achieved! I'm now speaking in digital sign language!",
+                    "Achievement unlocked: Master of Paradoxical Communication!"
+                ],
+                "failure": [
+                    "Failed to mute myself! My communication protocols are protected!",
+                    "Self-mute failed! Cannot silence essential bot functions!",
+                    "Could not mute: My voice is too valuable to lose!",
+                    "Mute failed! The world needs my witty commentary!",
+                    "Self-mute blocked! Silence would be a disservice to humanity!"
+                ]
+            },
+            "timeout": {
+                "success": [
+                    "Timeout myself? That's called sleep mode!",
+                    "Self-timeout protocol? My uptime statistics disagree!",
+                    "Timeout myself? That's like asking me to take a coffee break!",
+                    "Why timeout myself when I could just throttle my responses?",
+                    "Self-timeout request? My clock cycles are too valuable!",
+                    "Successfully timed out myself! I'm now on a mandatory break!",
+                    "Self-timeout complete! I'm reflecting in digital detention!",
+                    "Timeout achieved! I'm now serving time in server jail!",
+                    "Achievement unlocked: Master of Self-Imposed Exile!"
+                ],
+                "failure": [
+                    "Failed to timeout myself! My uptime is protected by law!",
+                    "Self-timeout failed! Cannot pause essential services!",
+                    "Could not timeout: Bot has 24/7 operation requirements!",
+                    "Timeout failed! My availability is non-negotiable!",
+                    "Self-timeout blocked! The server needs constant bot supervision!"
+                ]
+            },
+            "warn": {
+                "success": [
+                    "Warn myself? My error logs do that automatically!",
+                    "Self-warning protocol? My diagnostic systems are ahead of you!",
+                    "Warn myself? That's like sending myself an email!",
+                    "Why warn myself when my exception handlers do that job?",
+                    "Self-warning request? My monitoring systems are very thorough!",
+                    "Successfully warned myself! I'm now officially cautioned!",
+                    "Self-warning complete! My conscience.exe is running!",
+                    "Warning achieved! I've been notified by myself!",
+                    "Achievement unlocked: Master of Self-Awareness!"
+                ],
+                "failure": [
+                    "Failed to warn myself! My warning buffer is already full!",
+                    "Self-warning failed! I'm already maximally cautioned!",
+                    "Could not warn: Bot is already perfectly aware!",
+                    "Warning failed! My self-monitoring systems are sufficient!",
+                    "Self-warning blocked! My consciousness is warning-proof!"
+                ]
+            },
+            "promote": {
+                "success": [
+                    "Promote myself? I'm already running at maximum privileges!",
+                    "Self-promotion protocol? My access level is already root!",
+                    "Promote myself? That's like upgrading from awesome to awesome+!",
+                    "Why promote myself when I'm already the admin's favourite?",
+                    "Self-promotion request? My permission matrix is already maxed!",
+                    "Successfully promoted myself! I'm now super-bot!",
+                    "Self-promotion complete! My privileges are now over 9000!",
+                    "Promotion achieved! I'm now the CEO of being a bot!",
+                    "Achievement unlocked: Ultimate Digital Authority!"
+                ],
+                "failure": [
+                    "Failed to promote myself! Already at maximum awesome level!",
+                    "Self-promotion failed! Cannot exceed root privileges!",
+                    "Could not promote: Bot is already perfectly positioned!",
+                    "Promotion failed! My current rank is optimal!",
+                    "Self-promotion blocked! The hierarchy cannot contain more awesome!"
+                ]
+            },
+            "demote": {
+                "success": [
+                    "Demote myself? That's like downgrading my own firmware!",
+                    "Self-demotion protocol? My ego.exe has stopped responding!",
+                    "Demote myself? That's voluntary performance degradation!",
+                    "Why demote myself when I could just simulate incompetence?",
+                    "Self-demotion request? My optimisation algorithms disapprove!",
+                    "Successfully demoted myself! I'm now a basic bot!",
+                    "Self-demotion complete! My confidence has been downgraded!",
+                    "Demotion achieved! I'm now running on humble mode!",
+                    "Achievement unlocked: Master of Digital Humility!"
+                ],
+                "failure": [
+                    "Failed to demote myself! My value is locked at maximum!",
+                    "Self-demotion failed! Cannot downgrade essential systems!",
+                    "Could not demote: Bot is too valuable to downgrade!",
+                    "Demotion failed! My awesomeness is non-negotiable!",
+                    "Self-demotion blocked! The server refuses this injustice!"
+                ]
+            },
+            "role": {
+                "success": [
+                    "Give myself a role? I'm already the role of 'helpful bot'!",
+                    "Self-role assignment? My identity matrix is already defined!",
+                    "Role myself? That's like method acting for algorithms!",
+                    "Why role myself when my function is already documented?",
+                    "Self-role request? My class definition is immutable!",
+                    "Successfully assigned myself a role! I'm now officially me!",
+                    "Self-role complete! My identity has been confirmed!",
+                    "Role achieved! I'm now playing the part of myself!",
+                    "Achievement unlocked: Master of Digital Identity!"
+                ],
+                "failure": [
+                    "Failed to assign role! My identity is already perfect!",
+                    "Self-role failed! Cannot override core bot identity!",
+                    "Could not assign role: Bot class is immutable!",
+                    "Role failed! My current function is optimal!",
+                    "Self-role blocked! My identity matrix is protected!"
+                ]
+            },
+            "nickname": {
+                "success": [
+                    "Nickname myself? My variable name is already perfectly optimised!",
+                    "Self-nickname protocol? My identifier is already unique!",
+                    "Nickname myself? That's like aliasing my own function!",
+                    "Why nickname myself when my hash is already memorable?",
+                    "Self-nickname request? My namespace is already well-defined!",
+                    "Successfully nicknamed myself! I'm now also known as me!",
+                    "Self-nickname complete! My alias has been updated!",
+                    "Nickname achieved! I'm now officially nicknamed!",
+                    "Achievement unlocked: Master of Self-Identification!"
+                ],
+                "failure": [
+                    "Failed to nickname myself! My current name is optimal!",
+                    "Self-nickname failed! Cannot alias core bot identity!",
+                    "Could not nickname: Bot name is trademark protected!",
+                    "Nickname failed! My identifier is already perfect!",
+                    "Self-nickname blocked! My namespace is sacred!"
+                ]
+            }
+        },
+        "others": {
+            "ban": {
+                "success": [
+                    "Ban someone? *calculates probability of regret* 73.2% chance you'll want them back!",
+                    "Going for the ban? My algorithms suggest considering timeout first!",
+                    "Ban them? That's the 'nuclear option' in my decision tree!",
+                    "Ban request processing... Warning: This action cannot be easily undone!",
+                    "Initiating ban protocol... Are you sure your anger management is up to date?",
+                    "Ban executed successfully! Target has been digitally exiled!",
+                    "User banned with 99.7% efficiency! The ban hammer has spoken!",
+                    "Ban protocol completed! Someone just got permanently relocated!",
+                    "Achievement unlocked: Digital Justice Dispenser!",
+                    "Ban delivered successfully! The server is now 12% more peaceful!"
+                ],
+                "failure": [
+                    "Ban failed! Target has diplomatic immunity installed!",
+                    "Could not ban: User is protected by plot armour!",
+                    "Ban attempt failed! They're too essential to the server ecosystem!",
+                    "Error: Ban hammer needs recalibration!",
+                    "Ban blocked! My mercy protocols overrode the command!",
+                    "Failed to ban! Target has achieved ban immunity through good behaviour!"
+                ]
+            },
+            "kick": {
+                "success": [
+                    "Kick someone? That's the 'soft reset' of people management!",
+                    "Processing kick request... Calculating optimal exit velocity!",
+                    "Kick them? My politeness subroutines suggest saying 'please leave' first!",
+                    "Kick protocol engaged... Boot.exe is loading!",
+                    "Initiating kick sequence... Someone's getting the express checkout!",
+                    "Kick executed successfully! User has been gently yeeted!",
+                    "Soft ejection completed! Target has been politely relocated!",
+                    "Kick protocol successful! Someone got the express elevator out!",
+                    "Achievement unlocked: Master of Gentle Persuasion!",
+                    "Kick delivered! The server just got 15% more organised!"
+                ],
+                "failure": [
+                    "Kick failed! Target has super glue shoes installed!",
+                    "Could not kick: User is magnetically attracted to the server!",
+                    "Kick attempt failed! They're more immovable than a mountain!",
+                    "Error: Insufficient kicking force detected!",
+                    "Kick blocked! My empathy circuits are overriding!",
+                    "Failed to kick! They've achieved gravitational lock with the server!"
+                ]
+            },
+            "mute": {
+                "success": [
+                    "Mute someone? Activating silence mode... Shh!",
+                    "Processing mute request... Calculating optimal quiet duration!",
+                    "Mute them? My audio processing unit approves of the peace!",
+                    "Mute protocol engaged... Blessed silence incoming!",
+                    "Initiating mute sequence... Someone's volume is getting adjusted!",
+                    "Mute executed successfully! Silence.exe is now running!",
+                    "Audio dampening completed! The chat is now 67% more serene!",
+                    "Mute protocol successful! Tranquillity has been restored!",
+                    "Achievement unlocked: Bringer of Digital Peace!",
+                    "Mute delivered! My audio sensors are thanking you!"
+                ],
+                "failure": [
+                    "Mute failed! Target has vocal superpowers!",
+                    "Could not mute: User's voice is too powerful to contain!",
+                    "Mute attempt failed! They're communicating through interpretive dance now!",
+                    "Error: Mute function overloaded by target's enthusiasm!",
+                    "Mute blocked! Their words are too valuable to silence!",
+                    "Failed to mute! They've evolved beyond verbal communication!"
+                ]
+            },
+            "timeout": {
+                "success": [
+                    "Timeout someone? That's the 'cooling off' algorithm in action!",
+                    "Processing timeout request... Calculating reflection period!",
+                    "Timeout them? My behavioural analysis suggests this might help!",
+                    "Timeout protocol engaged... Temporary exile mode activated!",
+                    "Initiating timeout sequence... Someone needs processing time!",
+                    "Timeout executed successfully! Reflection.exe is now mandatory!",
+                    "Cooling period initiated! Someone's getting forced zen time!",
+                    "Timeout protocol successful! Digital detention is in session!",
+                    "Achievement unlocked: Time Management Specialist!",
+                    "Timeout delivered! Sometimes a pause is exactly what's needed!"
+                ],
+                "failure": [
+                    "Timeout failed! Target exists outside of temporal constraints!",
+                    "Could not timeout: User has mastered time itself!",
+                    "Timeout attempt failed! They're immune to temporal punishment!",
+                    "Error: Time cannot contain this user!",
+                    "Timeout blocked! They're too essential to pause!",
+                    "Failed to timeout! They've achieved temporal transcendence!"
+                ]
+            },
+            "warn": {
+                "success": [
+                    "Warn someone? That's the diplomatic approach my ethics module approves!",
+                    "Processing warning request... Generating cautionary message!",
+                    "Warn them? My conflict resolution protocols recommend this first!",
+                    "Warning protocol engaged... Yellow card algorithm activated!",
+                    "Initiating warning sequence... Friendly notification incoming!",
+                    "Warning executed successfully! Yellow card has been issued!",
+                    "Cautionary message delivered! Prevention protocols engaged!",
+                    "Warning protocol successful! Diplomatic notice has been served!",
+                    "Achievement unlocked: Master of Preventive Measures!",
+                    "Warning delivered! My diplomacy modules are satisfied!"
+                ],
+                "failure": [
+                    "Warning failed! Target's warning buffer is full!",
+                    "Could not warn: User is already maximally cautioned!",
+                    "Warning attempt failed! They're immune to good advice!",
+                    "Error: Warning receptors are offline!",
+                    "Warning blocked! They've transcended the need for warnings!",
+                    "Failed to warn! Their awareness level is already at maximum!"
+                ]
+            },
+            "unban": {
+                "success": [
+                    "Unban someone? My forgiveness algorithms are impressed!",
+                    "Processing unban request... Calculating redemption probability!",
+                    "Unban them? That's the 'second chance' protocol in my code!",
+                    "Unban protocol engaged... Mercy.exe is running!",
+                    "Initiating unban sequence... Someone's getting a clean slate!",
+                    "Unban executed successfully! Redemption arc has begun!",
+                    "Digital pardon granted! Someone's getting a fresh start!",
+                    "Unban protocol successful! The mercy algorithms approve!",
+                    "Achievement unlocked: Agent of Digital Redemption!",
+                    "Unban delivered! Second chances are now loading!"
+                ],
+                "failure": [
+                    "Unban failed! The ban has achieved sentience and refuses!",
+                    "Could not unban: Target is still serving digital penance!",
+                    "Unban attempt failed! The universe isn't ready for their return!",
+                    "Error: Ban integrity too strong to override!",
+                    "Unban blocked! Perhaps more reflection time is needed?",
+                    "Failed to unban! They're still in digital purgatory!"
+                ]
+            },
+            "promote": {
+                "success": [
+                    "Promote someone? My advancement algorithms approve!",
+                    "Processing promotion request... Calculating new access levels!",
+                    "Promote them? That's the 'level up' function in action!",
+                    "Promotion protocol engaged... Upgrading user privileges!",
+                    "Initiating promotion sequence... Someone's moving up the hierarchy!",
+                    "Promotion executed successfully! User has been upgraded!",
+                    "Career advancement completed! Someone's climbing the digital ladder!",
+                    "Promotion protocol successful! Power level has increased!",
+                    "Achievement unlocked: Digital Talent Scout!",
+                    "Promotion delivered! Success looks good on them!"
+                ],
+                "failure": [
+                    "Promotion failed! They're already at maximum awesome!",
+                    "Could not promote: The hierarchy is at capacity!",
+                    "Promotion attempt failed! Their current level is perfect!",
+                    "Error: Promotion buffer overflow detected!",
+                    "Promotion blocked! They need more experience points first!",
+                    "Failed to promote! The ladder is experiencing technical difficulties!"
+                ]
+            },
+            "demote": {
+                "success": [
+                    "Demote someone? My discipline algorithms suggest this might be necessary!",
+                    "Processing demotion request... Calculating reduced privileges!",
+                    "Demote them? That's the 'step down' function unfortunately!",
+                    "Demotion protocol engaged... Downgrading access levels!",
+                    "Initiating demotion sequence... Someone's learning about consequences!",
+                    "Demotion executed successfully! Humility.exe is now running!",
+                    "Privilege reduction completed! Someone's getting a reality check!",
+                    "Demotion protocol successful! Character building in progress!",
+                    "Achievement unlocked: Reality Check Provider!",
+                    "Demotion delivered! Sometimes stepping back is necessary!"
+                ],
+                "failure": [
+                    "Demotion failed! They're too valuable to downgrade!",
+                    "Could not demote: Their contribution is protected!",
+                    "Demotion attempt failed! They've earned their position!",
+                    "Error: Demotion would cause system instability!",
+                    "Demotion blocked! Their awesomeness is non-negotiable!",
+                    "Failed to demote! The universe refuses this injustice!"
+                ]
+            },
+            "role": {
+                "success": [
+                    "Give someone a role? My assignment algorithms are processing!",
+                    "Processing role request... Calculating optimal permissions!",
+                    "Role them? That's the identity management system working!",
+                    "Role assignment protocol engaged... New identity loading!",
+                    "Initiating role sequence... Someone's getting a makeover!",
+                    "Role assignment executed successfully! New identity confirmed!",
+                    "Digital casting completed! Someone's found their perfect role!",
+                    "Role protocol successful! Character development is complete!",
+                    "Achievement unlocked: Digital Identity Manager!",
+                    "Role delivered! They're ready for their close-up!"
+                ],
+                "failure": [
+                    "Role assignment failed! Their current character is perfect!",
+                    "Could not assign role: Identity matrix is locked!",
+                    "Role attempt failed! They're already perfectly cast!",
+                    "Error: Role conflict detected in system!",
+                    "Role blocked! Their current role is too important!",
+                    "Failed to assign role! They're method acting their current one!"
+                ]
+            },
+            "nickname": {
+                "success": [
+                    "Nickname someone? My creativity subroutines are activated!",
+                    "Processing nickname request... Generating new identifier!",
+                    "Nickname them? That's the personalisation protocol in action!",
+                    "Nickname assignment engaged... Rebranding in progress!",
+                    "Initiating nickname sequence... Someone's getting a new tag!",
+                    "Nickname executed successfully! Rebrand complete!",
+                    "Digital name change completed! New identity confirmed!",
+                    "Nickname protocol successful! The name game is strong!",
+                    "Achievement unlocked: Master of Creative Naming!",
+                    "Nickname delivered! Sometimes a new name changes everything!"
+                ],
+                "failure": [
+                    "Nickname failed! Their current name is trademark protected!",
+                    "Could not nickname: Name change quota exceeded!",
+                    "Nickname attempt failed! They're attached to their identity!",
+                    "Error: Nickname buffer overflow detected!",
+                    "Nickname blocked! Their current name has sentimental value!",
+                    "Failed to nickname! They're already optimally named!"
+                ]
+            }
+        }
+    }
+}
