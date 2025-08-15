@@ -7,6 +7,95 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2025-08-15
+
+### ✨ Features
+
+- **Comprehensive Utility Command Suite**: 8 new utility commands with Discord Components v2
+
+  - `/avatar [user]` - Display user avatars with guild-specific and global options
+  - `/userinfo <user>` - Detailed user information with account creation date, badges, and server join details
+  - `/serverinfo` - Complete server statistics including member counts, creation date, features, and boost status
+  - `/random <min> <max>` - Cryptographically secure random number generation with range validation
+  - `/base64 <encode|decode> <text>` - Base64 encoding/decoding with error handling for invalid input
+  - `/hash <algorithm> <text>` - Multiple hash algorithms (MD5, SHA1, SHA256, SHA512) with hex output
+  - `/color <hex>` - Color information display with RGB conversion and visual color preview
+  - `/uuid [version]` - UUID generation supporting v1, v4, and v7 with format validation
+
+- **Advanced Case Management System**: Complete moderation case tracking
+
+  - `/case <view|list|search|edit|delete>` - Comprehensive case management interface
+  - **Case View**: Individual case details with evidence, attachments, and timeline
+  - **Case List**: Paginated case browsing with filtering by moderator, user, or type
+  - **Case Search**: Advanced search with text queries across reasons and evidence
+  - **Case Edit**: Modify case reasons with audit trail and moderator tracking
+  - **Case Delete**: Secure case deletion with confirmation prompts
+  - Unique alphanumeric case IDs (e.g., "A1B2C3") for easy reference
+  - UUID-based internal tracking with database relationships
+
+- **Enhanced Moderation Commands**: Complete moderation overhaul with case integration
+
+  - **Updated Ban/Kick/Warn/Timeout**: All moderation commands now create case records
+  - **Case ID Integration**: Every moderation action generates trackable case with unique ID
+  - **User Notification System**: DM notifications include case IDs for appeals
+  - **Database Integration**: Proper foreign key relationships with guilds and users
+  - **Shared Utilities**: Centralized guild and user management functions
+  - **Evidence Tracking**: Support for evidence attachments and detailed reasoning
+
+### 🔧 Infrastructure Improvements
+
+- **Shared Moderation Utilities**: Centralized database operations
+
+  - `ensureGuildExists()` - Automatic guild registration with conflict handling
+  - `storeUser()` - User profile management with update-on-conflict
+  - `generateUniqueCaseId()` - Collision-resistant case ID generation
+  - Foreign key constraint handling for data integrity
+
+- **Enhanced Command Deployment**: Improved change detection system
+
+  - **Hash Command Fix**: Resolved false positive deployment updates
+  - **Option Normalization**: Consistent required field handling across all commands
+  - **JSON Comparison**: Accurate change detection using string comparison
+  - **Detailed Logging**: Comprehensive deployment analysis and change reporting
+
+- **ES Module Compatibility**: Fixed module system issues
+  - **Joke Generator**: Replaced `__dirname` with `process.cwd()` fallback for ES modules
+  - **Path Resolution**: Improved file system access in ES module environment
+  - **Build Compatibility**: Ensured clean builds across development and production
+
+### 🛠️ Technical Improvements
+
+- **Database Schema Evolution**: Enhanced moderation case tracking
+
+  - **Foreign Key Constraints**: Proper relationships between cases, guilds, and users
+  - **Case Metadata**: Evidence arrays, attachment tracking, and audit trails
+  - **Index Optimization**: Efficient querying for case management operations
+
+- **Type Safety Enhancements**: Comprehensive TypeScript integration
+
+  - **Command Interface**: Consistent typing across all new commands
+  - **Database Operations**: Type-safe Drizzle ORM integration throughout
+  - **Error Handling**: Proper error types and exception management
+
+- **Code Quality**: Consistent patterns and best practices
+  - **Linting Compliance**: All commands pass ESLint cognitive complexity rules
+  - **Error Boundaries**: Comprehensive error handling with user-friendly messages
+  - **Validation**: Input sanitization and Discord API error handling
+  - **Documentation**: Inline code documentation and clear function signatures
+
+### 🐛 Bug Fixes
+
+- **Command Deployment**: Fixed hash command repeatedly deploying without changes
+- **Module Resolution**: Resolved ES module compatibility issues in utilities
+- **Database Constraints**: Fixed foreign key constraint violations in moderation system
+- **Type Assertions**: Removed unnecessary non-null assertions for cleaner code
+
+### 📚 Documentation
+
+- **Code Comments**: Enhanced inline documentation for complex operations
+- **Type Definitions**: Clear interfaces and type exports for all new functionality
+- **Error Messages**: User-friendly error messages with actionable guidance
+
 ## [2.1.1] - 2025-08-11
 
 ### ✨ Features
