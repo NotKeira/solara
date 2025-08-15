@@ -9,11 +9,16 @@ import {
   InteractionContextType,
   ApplicationIntegrationType,
 } from "discord.js";
+import { Database } from "@/database";
+import { moderationCases } from "@/database/schema";
+import { generateUniqueCaseId } from "@/utils/case-management";
+import { ensureGuildExists, storeUser } from "@/utils/moderation";
 export class KickCommand implements Command {
   data = new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Kick a member from the server")
-    .setContexts(InteractionContextType.Guild).setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
+    .setContexts(InteractionContextType.Guild)
+    .setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
     .addUserOption((option) =>
       option
         .setName("member")
@@ -58,6 +63,9 @@ export class KickCommand implements Command {
       // Try to DM the user before kicking
       let userContacted: boolean = false;
 
+      // Generate case ID
+      const { id: caseUuid, caseId } = await generateUniqueCaseId();
+
       try {
         const dmContainer = new ContainerBuilder()
           .addTextDisplayComponents((text) =>
@@ -66,6 +74,9 @@ export class KickCommand implements Command {
             )
           )
           .addSeparatorComponents((sep) => sep.setDivider(true))
+          .addTextDisplayComponents((text) =>
+            text.setContent(`**Case ID:** ${caseId}`)
+          )
           .addTextDisplayComponents((text) =>
             text.setContent(`**Reason:** ${reason}`)
           )
@@ -90,13 +101,42 @@ export class KickCommand implements Command {
         }
       }
 
-      await member.kick(reason);
+      await member.kick(
+        `${reason} | Case: ${caseId} | Moderator: ${interaction.user.username}`
+      );
+
+      // Ensure guild exists in database
+      await ensureGuildExists(
+        interaction.guild.id,
+        interaction.guild.name,
+        interaction.guild.ownerId
+      );
+
+      // Store users and create case
+      await storeUser(targetUser);
+      await storeUser(interaction.user);
+
+      // Create moderation case
+      await Database.insert(moderationCases).values({
+        id: caseUuid,
+        caseId: caseId,
+        guildId: interaction.guild.id,
+        type: "kick",
+        userId: targetUser.id,
+        moderatorId: interaction.user.id,
+        reason: reason,
+        evidence: [],
+        attachments: [],
+      });
 
       const resultContainer = new ContainerBuilder()
         .addTextDisplayComponents((text) =>
-          text.setContent("## Member Kicked Successfully")
+          text.setContent("## ✅ Member Kicked Successfully")
         )
         .addSeparatorComponents((sep) => sep.setDivider(true))
+        .addTextDisplayComponents((text) =>
+          text.setContent(`**Case ID:** ${caseId}`)
+        )
         .addTextDisplayComponents((text) =>
           text.setContent(
             `**Member:** ${targetUser.username} (${targetUser.id})`

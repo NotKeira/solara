@@ -10,8 +10,9 @@ import {
   ApplicationIntegrationType,
 } from "discord.js";
 import { Database } from "@/database";
-import { moderationCases, users } from "@/database/schema";
+import { moderationCases } from "@/database/schema";
 import { generateUniqueCaseId } from "@/utils/case-management";
+import { ensureGuildExists, storeUser } from "@/utils/moderation";
 
 export class TimeoutCommand implements Command {
   data = new SlashCommandBuilder()
@@ -148,9 +149,16 @@ export class TimeoutCommand implements Command {
         `${reason} | Case: ${caseId} | Moderator: ${interaction.user.username}`
       );
 
+      // Ensure guild exists in database before creating case
+      await ensureGuildExists(
+        interaction.guild.id,
+        interaction.guild.name,
+        interaction.guild.ownerId
+      );
+
       // Store user and moderator in database
-      await this.storeUser(targetUser);
-      await this.storeUser(interaction.user);
+      await storeUser(targetUser);
+      await storeUser(interaction.user);
 
       // Create moderation case
       await Database.insert(moderationCases).values({
@@ -226,28 +234,6 @@ export class TimeoutCommand implements Command {
         flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
       });
     }
-  }
-
-  private async storeUser(user: any): Promise<void> {
-    await Database.insert(users)
-      .values({
-        id: user.id,
-        username: user.username,
-        discriminator: user.discriminator,
-        globalName: user.globalName,
-        avatar: user.avatar,
-        bot: user.bot,
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          username: user.username,
-          discriminator: user.discriminator,
-          globalName: user.globalName,
-          avatar: user.avatar,
-          updatedAt: new Date(),
-        },
-      });
   }
 
   private parseDuration(duration: string): number | null {

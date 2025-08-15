@@ -12,8 +12,9 @@ import {
   GuildMember,
 } from "discord.js";
 import { Database } from "@/database";
-import { moderationCases, users, guilds } from "@/database/schema";
+import { moderationCases } from "@/database/schema";
 import { generateUniqueCaseId } from "@/utils/case-management";
+import { ensureGuildExists, storeUser } from "@/utils/moderation";
 
 export class BanCommand implements Command {
   data = new SlashCommandBuilder()
@@ -218,7 +219,7 @@ export class BanCommand implements Command {
     });
 
     // Ensure guild exists in database
-    await this.ensureGuildExists(
+    await ensureGuildExists(
       interaction.guild!.id,
       interaction.guild!.name,
       interaction.guild!.ownerId
@@ -322,47 +323,10 @@ export class BanCommand implements Command {
       duration,
       expiresAt,
     } = params;
-    // Store target user
-    await Database.insert(users)
-      .values({
-        id: targetUser.id,
-        username: targetUser.username,
-        discriminator: targetUser.discriminator,
-        globalName: targetUser.globalName,
-        avatar: targetUser.avatar,
-        bot: targetUser.bot,
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          username: targetUser.username,
-          discriminator: targetUser.discriminator,
-          globalName: targetUser.globalName,
-          avatar: targetUser.avatar,
-          updatedAt: new Date(),
-        },
-      });
 
-    // Store moderator
-    await Database.insert(users)
-      .values({
-        id: moderator.id,
-        username: moderator.username,
-        discriminator: moderator.discriminator,
-        globalName: moderator.globalName,
-        avatar: moderator.avatar,
-        bot: moderator.bot,
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          username: moderator.username,
-          discriminator: moderator.discriminator,
-          globalName: moderator.globalName,
-          avatar: moderator.avatar,
-          updatedAt: new Date(),
-        },
-      });
+    // Store target user and moderator using shared utilities
+    await storeUser(targetUser);
+    await storeUser(moderator);
 
     // Create moderation case
     await Database.insert(moderationCases).values({
@@ -477,26 +441,6 @@ export class BanCommand implements Command {
         return value * 365 * 24 * 60 * 60 * 1000; // years (365 days)
       default:
         return null;
-    }
-  }
-
-  private async ensureGuildExists(
-    guildId: string,
-    guildName: string,
-    ownerId: string
-  ): Promise<void> {
-    try {
-      // Try to insert the guild, ignore if it already exists
-      await Database.insert(guilds)
-        .values({
-          id: guildId,
-          name: guildName,
-          ownerId: ownerId,
-        })
-        .onConflictDoNothing();
-    } catch (error) {
-      console.error("Error ensuring guild exists:", error);
-      // Don't throw here, as the guild might already exist
     }
   }
 }

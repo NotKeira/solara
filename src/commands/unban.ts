@@ -5,7 +5,6 @@ import {
   ChatInputCommandInteraction,
   PermissionFlagsBits,
   MessageFlags,
-  DiscordAPIError,
   ContainerBuilder,
   InteractionContextType,
   ApplicationIntegrationType,
@@ -13,9 +12,10 @@ import {
   User,
 } from "discord.js";
 import { Database } from "@/database";
-import { moderationCases, users, guilds } from "@/database/schema";
+import { moderationCases } from "@/database/schema";
 import { generateUniqueCaseId } from "@/utils/case-management";
-import { JokeMessageGenerator } from "@/utils/jokegenerator";
+import { ensureGuildExists, storeUser } from "@/utils/moderation";
+import { JokeMessageGenerator } from "@/utils/joke-generator";
 
 const joker = new JokeMessageGenerator();
 
@@ -54,7 +54,7 @@ export class UnbanCommand implements Command {
     const reason: string =
       interaction.options.getString("reason") ?? "No reason provided";
     try {
-      // Validate ban request
+      // Validate unban request
       const validationResult = await this.validateUnbanRequest(
         interaction,
         targetUser
@@ -68,24 +68,16 @@ export class UnbanCommand implements Command {
       }
 
       // Execute the ban
-      await this.executeUnban(
-        interaction,
-        targetUser,
-        reason,
-        validationResult.duration ?? null,
-        validationResult.expiresAt ?? null,
-        validationResult.member ?? null
-      );
+      await this.executeUnban(interaction, targetUser, reason);
     } catch (error) {
-      console.error("Error banning user:", error);
+      console.error("Error unbanning user:", error);
       await this.sendErrorResponse(interaction);
     }
   }
 
   private async validateUnbanRequest(
     interaction: Interaction,
-    targetUser: any,
-    durationString: string | null
+    targetUser: any
   ): Promise<{
     isValid: boolean;
     errorContainer?: ContainerBuilder;
@@ -150,80 +142,47 @@ export class UnbanCommand implements Command {
       };
     }
 
-    // Parse duration
-    let duration: number | null = null;
-    let expiresAt: Date | null = null;
-    if (durationString && durationString.toLowerCase() !== "permanent") {
-      duration = this.parseDuration(durationString);
-      if (duration === null) {
-        return {
-          isValid: false,
-          errorContainer: new ContainerBuilder()
-            .addTextDisplayComponents((text) =>
-              text.setContent("## ❌ Invalid Duration")
-            )
-            .addSeparatorComponents((sep) => sep.setDivider(true))
-            .addTextDisplayComponents((text) =>
-              text.setContent(
-                "Invalid duration format. Use formats like: 1d, 1w, 1m, or 'permanent'"
-              )
-            ),
-        };
-      }
-      expiresAt = new Date(Date.now() + duration);
-    }
-
     return {
       isValid: true,
       member,
-      duration,
-      expiresAt,
     };
   }
 
-  private async executeBan(
+  private async executeUnban(
     interaction: Interaction,
     targetUser: any,
-    reason: string,
-    deleteDays: number,
-    duration: number | null,
-    expiresAt: Date | null,
-    member: GuildMember | null
+    reason: string
   ): Promise<void> {
     const { id: caseUuid, caseId } = await generateUniqueCaseId();
 
-    // Try to contact user
-    const userContacted = await this.tryContactUser(
-      member,
-      interaction,
-      reason,
-      caseId,
-      expiresAt
+    // Execute the unban
+    await interaction.guild!.members.unban(
+      targetUser.id,
+      `${reason} | Case: ${caseId} | Moderator: ${interaction.user.username}`
     );
 
-    // Execute the ban
-    await interaction.guild!.members.ban(targetUser.id, {
-      reason: `${reason} | Case: ${caseId} | Moderator: ${interaction.user.username}`,
-      deleteMessageSeconds: deleteDays * 24 * 60 * 60, // Convert days to seconds
-    });
-
     // Ensure guild exists in database
-    await this.ensureGuildExists(
+    await ensureGuildExists(
       interaction.guild!.id,
       interaction.guild!.name,
       interaction.guild!.ownerId
     );
 
-    // Store data in database
-    await this.storeBanData({
-      targetUser,
-      moderator: interaction.user,
-      caseUuid,
-      caseId,
+    // Store users and create case
+    await storeUser(targetUser);
+    await storeUser(interaction.user);
+
+    // Create moderation case
+    await Database.insert(moderationCases).values({
+      id: caseUuid,
+      caseId: caseId,
       guildId: interaction.guild!.id,
-      reason,
-      duration,
-      expiresAt,
+      type: "unban",
+      userId: targetUser.id,
+      moderatorId: interaction.user.id,
+      reason: reason,
+      evidence: [],
+      attachments: [],
     });
 
     // Send success response
@@ -231,157 +190,19 @@ export class UnbanCommand implements Command {
       interaction as ChatInputCommandInteraction,
       targetUser,
       reason,
-      caseId,
-      deleteDays,
-      expiresAt,
-      userContacted
+      caseId
     );
-  }
-
-  private async tryContactUser(
-    member: GuildMember | null,
-    interaction: Interaction,
-    reason: string,
-    caseId: string,
-    expiresAt: Date | null
-  ): Promise<boolean> {
-    if (!member) return false;
-
-    try {
-      const dmContainer = new ContainerBuilder()
-        .addTextDisplayComponents((text) =>
-          text.setContent(
-            `## ⚠️ You have been banned from ${interaction.guild!.name}`
-          )
-        )
-        .addSeparatorComponents((sep) => sep.setDivider(true))
-        .addTextDisplayComponents((text) =>
-          text.setContent(`**Case ID:** ${caseId}`)
-        )
-        .addTextDisplayComponents((text) =>
-          text.setContent(`**Reason:** ${reason}`)
-        )
-        .addTextDisplayComponents((text) =>
-          text.setContent(`**Moderator:** ${interaction.user.username}`)
-        );
-
-      if (expiresAt) {
-        dmContainer.addTextDisplayComponents((text) =>
-          text.setContent(`**Duration:** Until ${expiresAt.toLocaleString()}`)
-        );
-      }
-
-      dmContainer
-        .addSeparatorComponents((sep) => sep.setDivider(true))
-        .addTextDisplayComponents((text) =>
-          text.setContent(
-            "If you believe this was a mistake, please contact the server moderators."
-          )
-        );
-
-      await member.send({
-        components: [dmContainer],
-        flags: MessageFlags.IsComponentsV2,
-      });
-      return true;
-    } catch (error: unknown) {
-      if (error instanceof DiscordAPIError && error.code === 50007) {
-        return false;
-      }
-      return false;
-    }
-  }
-
-  private async storeBanData(params: {
-    targetUser: any;
-    moderator: any;
-    caseUuid: string;
-    caseId: string;
-    guildId: string;
-    reason: string;
-    duration: number | null;
-    expiresAt: Date | null;
-  }): Promise<void> {
-    const {
-      targetUser,
-      moderator,
-      caseUuid,
-      caseId,
-      guildId,
-      reason,
-      duration,
-      expiresAt,
-    } = params;
-    // Store target user
-    await Database.insert(users)
-      .values({
-        id: targetUser.id,
-        username: targetUser.username,
-        discriminator: targetUser.discriminator,
-        globalName: targetUser.globalName,
-        avatar: targetUser.avatar,
-        bot: targetUser.bot,
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          username: targetUser.username,
-          discriminator: targetUser.discriminator,
-          globalName: targetUser.globalName,
-          avatar: targetUser.avatar,
-          updatedAt: new Date(),
-        },
-      });
-
-    // Store moderator
-    await Database.insert(users)
-      .values({
-        id: moderator.id,
-        username: moderator.username,
-        discriminator: moderator.discriminator,
-        globalName: moderator.globalName,
-        avatar: moderator.avatar,
-        bot: moderator.bot,
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          username: moderator.username,
-          discriminator: moderator.discriminator,
-          globalName: moderator.globalName,
-          avatar: moderator.avatar,
-          updatedAt: new Date(),
-        },
-      });
-
-    // Create moderation case
-    await Database.insert(moderationCases).values({
-      id: caseUuid,
-      caseId: caseId,
-      guildId: guildId,
-      type: "ban",
-      userId: targetUser.id,
-      moderatorId: moderator.id,
-      reason: reason,
-      duration: duration,
-      expiresAt: expiresAt,
-      evidence: [],
-      attachments: [],
-    });
   }
 
   private async sendSuccessResponse(
     interaction: ChatInputCommandInteraction,
     targetUser: any,
     reason: string,
-    caseId: string,
-    deleteDays: number,
-    expiresAt: Date | null,
-    userContacted: boolean
+    caseId: string
   ): Promise<void> {
     const resultContainer = new ContainerBuilder()
       .addTextDisplayComponents((text) =>
-        text.setContent("## ✅ User Banned Successfully")
+        text.setContent("## ✅ User Unbanned Successfully")
       )
       .addSeparatorComponents((sep) => sep.setDivider(true))
       .addTextDisplayComponents((text) =>
@@ -395,28 +216,6 @@ export class UnbanCommand implements Command {
       )
       .addTextDisplayComponents((text) =>
         text.setContent(`**Reason:** ${reason}`)
-      );
-
-    if (deleteDays > 0) {
-      resultContainer.addTextDisplayComponents((text) =>
-        text.setContent(`**Messages Deleted:** ${deleteDays} day(s)`)
-      );
-    }
-
-    if (expiresAt) {
-      resultContainer.addTextDisplayComponents((text) =>
-        text.setContent(`**Expires:** ${expiresAt.toLocaleString()}`)
-      );
-    }
-
-    resultContainer
-      .addSeparatorComponents((sep) => sep.setDivider(true))
-      .addTextDisplayComponents((text) =>
-        text.setContent(
-          `**User Contacted:** ${
-            userContacted ? "Yes" : "No (DMs disabled or not in server)"
-          }`
-        )
       );
 
     await interaction.reply({
@@ -442,52 +241,6 @@ export class UnbanCommand implements Command {
       components: [errorContainer],
       flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
     });
-  }
-
-  /**
-   * Parse duration string into milliseconds
-   * Supports: 1d, 1w, 1m, 1y
-   */
-  private parseDuration(duration: string): number | null {
-    const regex = /^(\d+)([dwmy])$/i;
-    const match = regex.exec(duration);
-    if (!match?.[1] || !match?.[2]) return null;
-
-    const value = parseInt(match[1], 10);
-    const unit = match[2].toLowerCase();
-
-    switch (unit) {
-      case "d":
-        return value * 24 * 60 * 60 * 1000; // days
-      case "w":
-        return value * 7 * 24 * 60 * 60 * 1000; // weeks
-      case "m":
-        return value * 30 * 24 * 60 * 60 * 1000; // months (30 days)
-      case "y":
-        return value * 365 * 24 * 60 * 60 * 1000; // years (365 days)
-      default:
-        return null;
-    }
-  }
-
-  private async ensureGuildExists(
-    guildId: string,
-    guildName: string,
-    ownerId: string
-  ): Promise<void> {
-    try {
-      // Try to insert the guild, ignore if it already exists
-      await Database.insert(guilds)
-        .values({
-          id: guildId,
-          name: guildName,
-          ownerId: ownerId,
-        })
-        .onConflictDoNothing();
-    } catch (error) {
-      console.error("Error ensuring guild exists:", error);
-      // Don't throw here, as the guild might already exist
-    }
   }
 }
 
